@@ -11,6 +11,20 @@ const Create = {
       this.code = `${Create.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid";
     }
+  },
+  StudyProgrammeDaoCreateFailed: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}StudyProgrammeDaoCreateFailed`;
+      this.message = "Creation of study Programme failed.";
+    }
+  },
+  StudyProgrammeNameNotUnique: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}StudyProgrammeNameNotUnique`;
+      this.message = "Study Programme name already in database.";
+    }
   }
 };
 

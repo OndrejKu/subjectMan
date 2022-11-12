@@ -33,6 +33,12 @@ class StudyProgrammeAbl {
     try {
       studyProgramme = await this.dao.create(uuObject);
     } catch (error) {
+      if (e instanceof DuplicateKey) {
+        throw new Errors.Create.StudyProgrammeNameNotUnique({ uuAppErrorMap }, { studyProgrammeName: dtoIn.name })
+      }
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.Create.StudyProgrammeDaoCreateFailed({ uuAppErrorMap }, error)
+      }
       throw error;
     }
 
