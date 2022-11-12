@@ -6,6 +6,9 @@
       "schemaMap": {
         "subjectmanMain": {
           "realization": "dao/SubjectmanMainMongo"
+        },
+        "studyProgramme": {
+          "realization": "dao/StudyProgrammeMongo"
         }
       }
     }

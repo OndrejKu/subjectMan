@@ -25,6 +25,11 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "studyProgramme/create": {
+        "realization": "api/controllers/StudyProgrammeController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
