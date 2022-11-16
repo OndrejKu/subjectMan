@@ -9,6 +9,9 @@
         },
         "studyProgramme": {
           "realization": "dao/StudyProgrammeMongo"
+        },
+        "subject": {
+          "realization": "dao/SubjectMongo"
         }
       }
     }
