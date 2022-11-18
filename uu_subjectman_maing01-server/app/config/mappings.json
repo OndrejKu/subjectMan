@@ -50,6 +50,26 @@
         "realization": "api/controllers/SubjectController.update",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "topic/create": {
+        "realization": "api/controllers/TopicController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "topic/update": {
+        "realization": "api/controllers/TopicController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "topic/get": {
+        "realization": "api/controllers/TopicController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "topic/list": {
+        "realization": "api/controllers/TopicController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
