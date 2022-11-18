@@ -26,9 +26,9 @@ const Create = {
       this.code = `${Create.UC_CODE}StudyProgrammeNameNotUnique`;
       this.message = "Study Programme name already in database.";
     }
-  }
+  },
 };
 
 module.exports = {
-  Create
+  Create,
 };

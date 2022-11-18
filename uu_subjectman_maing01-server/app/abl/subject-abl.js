@@ -7,7 +7,6 @@ const Errors = require("../api/errors/subject-error.js");
 const Warnings = require("../api/warnings/subject-warnings");
 
 class SubjectAbl {
-
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("subject");
@@ -23,30 +22,30 @@ class SubjectAbl {
       uuAppErrorMap,
       Warnings.Update.UnsupportedKeys,
       Errors.Update.InvalidDtoIn
-    )
+    );
 
     const uuObject = {
       ...dtoIn,
-      awid
-    }
+      awid,
+    };
     let updatedItem;
     try {
       //TODO: Validace že topicId a digitalContentIds existují
       updatedItem = await this.dao.update(uuObject);
     } catch (e) {
       if (e instanceof DuplicateKey) {
-        throw new Errors.Update.SubjectNameNotUnique({ uuAppErrorMap }, { subjectName: dtoIn.name })
+        throw new Errors.Update.SubjectNameNotUnique({ uuAppErrorMap }, { subjectName: dtoIn.name });
       }
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Update.SubjectDaoGetFailed({ uuAppErrorMap }, e)
+        throw new Errors.Update.SubjectDaoGetFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
 
     const dtoOut = {
       ...updatedItem,
-      uuAppErrorMap
-    }
+      uuAppErrorMap,
+    };
     return dtoOut;
   }
 
@@ -60,7 +59,7 @@ class SubjectAbl {
       uuAppErrorMap,
       Warnings.List.UnsupportedKeys,
       Errors.List.InvalidDtoIn
-    )
+    );
 
     let subjects;
 
@@ -68,15 +67,15 @@ class SubjectAbl {
       subjects = await this.dao.list(awid, dtoIn.name);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
-        throw new Errors.List.SubjectDaoListFailed({ uuAppErrorMap }, e)
+        throw new Errors.List.SubjectDaoListFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
 
     const dtoOut = {
       items: [...subjects],
-      uuAppErrorMap
-    }
+      uuAppErrorMap,
+    };
     return dtoOut;
   }
 
@@ -90,7 +89,7 @@ class SubjectAbl {
       uuAppErrorMap,
       Warnings.Get.UnsupportedKeys,
       Errors.Get.InvalidDtoIn
-    )
+    );
 
     let subject;
 
@@ -98,20 +97,19 @@ class SubjectAbl {
       subject = await this.dao.get(awid, dtoIn.id);
 
       if (!subject) {
-        throw new Errors.Get.SubjectNotFound({ uuAppErrorMap })
+        throw new Errors.Get.SubjectNotFound({ uuAppErrorMap });
       }
-
     } catch (e) {
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Get.SubjectDaoGetFailed({ uuAppErrorMap }, e)
+        throw new Errors.Get.SubjectDaoGetFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
 
     const dtoOut = {
       ...subject,
-      uuAppErrorMap
-    }
+      uuAppErrorMap,
+    };
     return dtoOut;
   }
 
@@ -125,33 +123,32 @@ class SubjectAbl {
       uuAppErrorMap,
       Warnings.Create.UnsupportedKeys,
       Errors.Create.InvalidDtoIn
-    )
+    );
 
     const uuObject = {
       ...dtoIn,
-      awid
-    }
+      awid,
+    };
 
     try {
       //TODO: Validace že topicId a digitalContentIds existují
       await this.dao.create(uuObject);
     } catch (e) {
       if (e instanceof DuplicateKey) {
-        throw new Errors.Create.SubjectNameNotUnique({ uuAppErrorMap }, { subjectName: dtoIn.name })
+        throw new Errors.Create.SubjectNameNotUnique({ uuAppErrorMap }, { subjectName: dtoIn.name });
       }
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.SubjectDaoCreateFailed({ uuAppErrorMap }, e)
+        throw new Errors.Create.SubjectDaoCreateFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
 
     const dtoOut = {
       ...uuObject,
-      uuAppErrorMap
-    }
+      uuAppErrorMap,
+    };
     return dtoOut;
   }
-
 }
 
 module.exports = new SubjectAbl();

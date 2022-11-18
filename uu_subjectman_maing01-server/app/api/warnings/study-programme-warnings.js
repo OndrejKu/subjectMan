@@ -6,8 +6,8 @@ const Warnings = {
   Create: {
     UnsupportedKeys: {
       code: `${Errors.Create.UU_CODE}unsupportedKeys`,
-    }
-  }
-}
+    },
+  },
+};
 
 module.exports = Warnings;

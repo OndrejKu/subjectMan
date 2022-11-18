@@ -25,7 +25,7 @@ const Create = {
       this.code = `${Create.UC_CODE}SubjectNameNotUnique`;
       this.message = "Subject name is already in database.";
     }
-  }
+  },
 };
 
 const Get = {
@@ -50,7 +50,7 @@ const Get = {
       this.code = `${Get.UC_CODE}SubjectNotFound`;
       this.message = "Subject not found.";
     }
-  }
+  },
 };
 
 const List = {
@@ -100,12 +100,12 @@ const Update = {
       this.code = `${Update.UC_CODE}SubjectNameNotUnique`;
       this.message = "Subject name is already in database.";
     }
-  }
+  },
 };
 
 module.exports = {
   Update,
   List,
   Get,
-  Create
+  Create,
 };
