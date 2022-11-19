@@ -70,6 +70,21 @@
         "realization": "api/controllers/TopicController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "digitalContent/create": {
+        "realization": "api/controllers/DigitalContentController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "digitalContent/update": {
+        "realization": "api/controllers/DigitalContentController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "digitalContent/list": {
+        "realization": "api/controllers/DigitalContentController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

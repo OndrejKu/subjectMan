@@ -15,6 +15,9 @@
         },
         "topic": {
           "realization": "dao/TopicMongo"
+        },
+        "digitalContent": {
+          "realization": "dao/DigitalContentMongo"
         }
       }
     }

@@ -13,7 +13,7 @@
     }
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator","Admin","Student","Teacher"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created","assigned"],
@@ -61,6 +61,18 @@
       "topic/list": {
         "sysStateList": ["active"],
         "profileList": []
+      },
+      "digitalContent/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Admin","Student","Teacher"]
+      },
+      "digitalContent/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Admin","Student","Teacher"]
+      },
+      "digitalContent/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Admin","Student","Teacher"]
       }
     }
   }
