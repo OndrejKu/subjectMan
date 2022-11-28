@@ -31,6 +31,7 @@ class SubjectAbl {
     let updatedItem;
     try {
       //TODO: Validace že topicId a digitalContentIds existují
+      // test
       updatedItem = await this.dao.update(uuObject);
     } catch (e) {
       if (e instanceof DuplicateKey) {
