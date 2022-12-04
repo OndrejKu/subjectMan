@@ -5,22 +5,22 @@ const Errors = require("../errors/digital-content-error.js");
 const Warnings = {
   Create: {
     UnsupportedKeys: {
-      code: `${Errors.Create.UU_CODE}unsupportedKeys`,
+      code: `${Errors.Create.UC_CODE}unsupportedKeys`,
     },
   },
   List: {
     UnsupportedKeys: {
-      code: `${Errors.List.UU_CODE}unsupportedKeys`,
+      code: `${Errors.List.UC_CODE}unsupportedKeys`,
     },
   },
   Update: {
     UnsupportedKeys: {
-      code: `${Errors.Update.UU_CODE}unsupportedKeys`,
+      code: `${Errors.Update.UC_CODE}unsupportedKeys`,
     },
   },
   Get: {
     UnsupportedKeys: {
-      code: `${Errors.Get.UU_CODE}unsupportedKeys`,
+      code: `${Errors.Get.UC_CODE}unsupportedKeys`,
     },
   },
 };

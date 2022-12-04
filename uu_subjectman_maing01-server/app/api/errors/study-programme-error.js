@@ -68,9 +68,14 @@ const Get = {
     }
   },
 };
+const List = {
+  UC_CODE: `${STUDY_PROGRAMME_ERROR_PREFIX}list/`,
+};
 
 module.exports = {
   Create,
   Update,
-  Get
+  Get,
+  List
+
 };

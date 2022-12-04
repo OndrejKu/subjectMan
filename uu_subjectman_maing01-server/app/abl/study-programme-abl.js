@@ -1,5 +1,4 @@
 "use strict";
-const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
@@ -7,7 +6,6 @@ const Errors = require("../api/errors/study-programme-error.js");
 const Warnings = require("../api/warnings/study-programme-warnings");
 
 class StudyProgrammeAbl {
-
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("studyProgramme");
@@ -22,33 +20,32 @@ class StudyProgrammeAbl {
       uuAppErrorMap,
       Warnings.Create.UnsupportedKeys,
       Errors.Create.InvalidDtoIn
-    )
+    );
 
-    const uuObject = {
+    let uuObject = {
       ...dtoIn,
-      awid
-    }
-    let studyProgramme;
+      awid,
+    };
+   
 
     try {
-      studyProgramme = await this.dao.create(uuObject);
+      uuObject = await this.dao.create(uuObject);
     } catch (error) {
       if (e instanceof DuplicateKey) {
-        throw new Errors.Create.StudyProgrammeNameNotUnique({ uuAppErrorMap }, { studyProgrammeName: dtoIn.name })
+        throw new Errors.Create.StudyProgrammeNameNotUnique({ uuAppErrorMap }, { studyProgrammeName: dtoIn.name });
       }
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.StudyProgrammeDaoCreateFailed({ uuAppErrorMap }, error)
+        throw new Errors.Create.StudyProgrammeDaoCreateFailed({ uuAppErrorMap }, error);
       }
       throw error;
     }
 
     const dtoOut = {
       ...uuObject,
-      uuAppErrorMap
-    }
+      uuAppErrorMap,
+    };
     return dtoOut;
   }
-
 }
 
 module.exports = new StudyProgrammeAbl();

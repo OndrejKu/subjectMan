@@ -27,16 +27,21 @@ class DigitalContentAbl {
       Errors.Update.InvalidDtoIn
     );
 
+    let origDigiContent = await this.dao.get(awid, dtoIn.id);
+    if (!origDigiContent) throw new Errors.Update.DigitalContentNotFound({ uuAppErrorMap });
+
     const uuObject = {
       id: dtoIn.id,
-      title: dtoIn.title,
-      link: dtoIn.link,
-      type: dtoIn.type,
+      title: dtoIn.title ? dtoIn.title : origDigiContent.title,
+      link: dtoIn.link ? dtoIn.link : origDigiContent.link,
+      type: dtoIn.type ? dtoIn.type : origDigiContent.type,
       awid: awid,
     };
 
+    let dtoOut = { ...uuObject };
+
     try {
-      await this.dao.update(uuObject);
+      dtoOut = await this.dao.update(uuObject);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.Update.DigitalContentDaoUpdateFailed({ uuAppErrorMap }, e);
@@ -44,10 +49,7 @@ class DigitalContentAbl {
       throw e;
     }
 
-    const dtoOut = {
-      ...uuObject,
-      uuAppErrorMap,
-    };
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
 
@@ -69,9 +71,10 @@ class DigitalContentAbl {
       type: dtoIn.type,
       awid: awid,
     };
+    let dtoOut = { ...uuObject };
 
     try {
-      await this.dao.create(uuObject);
+      dtoOut = await this.dao.create(uuObject);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.Create.DigitalContentDaoCreateFailed({ uuAppErrorMap }, e);
@@ -79,10 +82,8 @@ class DigitalContentAbl {
       throw e;
     }
 
-    const dtoOut = {
-      ...uuObject,
-      uuAppErrorMap,
-    };
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+
     return dtoOut;
   }
 }
