@@ -25,13 +25,43 @@ class DigitalContentAbl {
 
     let dtoOut = await this.dao.get(awid, dtoIn.id);
     if (!dtoOut) throw new Errors.Get.DigitalContentNotFound({ uuAppErrorMap });
-    
 
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
 
-  async list(awid, dtoIn) {}
+  async list(awid, dtoIn) {
+    let uuAppErrorMap = {};
+    const validationResult = this.validator.validate("digitalContentListDtoInType", dtoIn);
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys,
+      Errors.Update.InvalidDtoIn
+    );
+    let sort = {};
+    switch (dtoIn.sortBy) {
+      case "type":
+        sort = {
+          type: dtoIn.order === "desc" ? -1 : 1,
+        };
+        break;
+      case "title":
+        sort = {
+          title: dtoIn.order === "desc" ? -1 : 1,
+        };
+        break;
+      default:
+        break;
+    }
+
+    let dtoOut = await this.dao.list(awid, sort, dtoIn.pageInfo);
+
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }
 
   async update(awid, dtoIn) {
     let uuAppErrorMap = {};

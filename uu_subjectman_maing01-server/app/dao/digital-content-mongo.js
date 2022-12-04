@@ -10,8 +10,8 @@ class DigitalContentMongo extends UuObjectDao {
     return await super.insertOne(uuObject);
   }
 
-  async list(awid, pageInfo = {}) {
-    return await super.find({ awid }, pageInfo);
+  async list(awid, sort = {}, pageInfo = {}) {
+    return await super.find({ awid }, pageInfo, sort);
   }
 
   async update(uuObject) {

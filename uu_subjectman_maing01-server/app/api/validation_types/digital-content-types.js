@@ -17,8 +17,8 @@ const digitalContentListDtoInType = shape({
   order: oneOf(["asc", "desc"]),
   pageInfo: shape({
     pageIndex: integer(),
-    pageSize: integer()
-  })
+    pageSize: integer(),
+  }),
 });
 
 const digitalContentGetDToInType = shape({
