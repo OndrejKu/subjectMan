@@ -2,9 +2,9 @@
 const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 
 class DigitalContentMongo extends UuObjectDao {
-
-  async createSchema(){
+  async createSchema() {
     await super.createIndex({ awid: 1 }, { unique: true });
+    await super.createIndex({ awid: 1, name: 1 }, { unique: true, collation: this.collation });
   }
   async create(uuObject) {
     return await super.insertOne(uuObject);

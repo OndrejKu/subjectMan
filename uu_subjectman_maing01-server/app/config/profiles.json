@@ -2,26 +2,19 @@
   "{asid}": {
     "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Authorities","Executives","AwidLicenseOwner"],
     "useCaseMap": {
-      "topic/create": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","AwidLicenseOwner"]
-      },
-      "topic/update": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","AwidLicenseOwner"]
-      }
+    
     }
   },
   "*": {
     "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator","Admin","Student","Teacher"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
-        "sysStateList": ["created","assigned"],
-        "profileList": ["AwidLicenseOwner","AwidInitiator","Public"]
+        "sysStateList": ["created", "assigned"],
+        "profileList": ["AwidLicenseOwner", "AwidInitiator", "Public"]
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authenticated","Public"]
+        "profileList": ["Authenticated", "Public"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["active"],
@@ -32,27 +25,27 @@
       },
       "sys/uuAppWorkspace/initUve": {
         "sysStateList": ["created"],
-        "profileList": ["Public","AwidLicenseOwner"]
+        "profileList": ["Public", "AwidLicenseOwner"]
       },
       "studyProgramme/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","AwidLicenseOwner"]
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner"]
       },
       "subject/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","AwidLicenseOwner"]
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner"]
       },
       "subject/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","AwidLicenseOwner","Authenticated"]
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Authenticated"]
       },
       "subject/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","AwidLicenseOwner","Authenticated"]
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Authenticated"]
       },
       "subject/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","AwidLicenseOwner"]
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner"]
       },
       "topic/get": {
         "sysStateList": ["active"],
@@ -64,15 +57,23 @@
       },
       "digitalContent/create": {
         "sysStateList": ["active"],
-        "profileList": ["Admin","Student","Teacher"]
+        "profileList": ["Admin", "Student", "Teacher"]
       },
       "digitalContent/update": {
         "sysStateList": ["active"],
-        "profileList": ["Admin","Student","Teacher"]
+        "profileList": ["Admin", "Student", "Teacher"]
       },
       "digitalContent/list": {
         "sysStateList": ["active"],
-        "profileList": ["Admin","Student","Teacher"]
+        "profileList": ["Admin", "Student", "Teacher"]
+      },
+      "topic/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner"]
+      },
+      "topic/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives", "AwidLicenseOwner"]
       }
     }
   }
