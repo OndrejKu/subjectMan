@@ -71,6 +71,14 @@ const Get = {
 
 const List = {
   UC_CODE: `${DIGITAL_CONTENT_ERROR_PREFIX}list/`,
+  InvalidDtoIn: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid";
+    }
+    ///
+  },
 };
 
 module.exports = {

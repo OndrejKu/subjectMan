@@ -38,8 +38,8 @@ class DigitalContentAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Update.UnsupportedKeys,
-      Errors.Update.InvalidDtoIn
+      Warnings.List.UnsupportedKeys,
+      Errors.List.InvalidDtoIn
     );
     let sort = {};
     switch (dtoIn.sortBy) {

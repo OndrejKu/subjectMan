@@ -1,9 +1,9 @@
 /* eslint-disable */
 
-const studyProgrammeCreateDtoInType = shape({
+const studyProgrammeCreateDToInType = shape({
   name: uu5String(255).isRequired(),
   description: uu5String(4000),
-  degreeOfStudy: uu5String(255).isRequired(),
+  degreeOfStudy: oneOf(["ING", "BC", "MGR", "PHDR", "RNDR"]).isRequired(),
 });
 
 const studyProgrammeUpdateDToInType = shape({

@@ -20,6 +20,14 @@ const Create = {
       this.message = "Creation of study programme failed.";
     }
   },
+  StudyProgrammeNameNotUnique: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}studyProgrammeNameNotUnique`;
+      this.message = "Name already exists";
+    }
+    ///
+  },
 };
 
 const Update = {
@@ -29,6 +37,14 @@ const Update = {
       super(...arguments);
       this.code = `${Update.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid";
+    }
+    ///
+  },
+  StudyProgrammeNameNotUnique: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}studyProgrammeNameNotUnique`;
+      this.message = "Name already exists";
     }
     ///
   },
@@ -70,12 +86,19 @@ const Get = {
 };
 const List = {
   UC_CODE: `${STUDY_PROGRAMME_ERROR_PREFIX}list/`,
+  InvalidDtoIn: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid";
+    }
+    ///
+  },
 };
 
 module.exports = {
   Create,
   Update,
   Get,
-  List
-
+  List,
 };
