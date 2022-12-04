@@ -20,3 +20,7 @@ const digitalContentListDtoInType = shape({
     pageSize: integer()
   })
 });
+
+const digitalContentGetDToInType = shape({
+  id: id().isRequired(),
+});

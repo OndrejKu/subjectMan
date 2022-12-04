@@ -11,7 +11,25 @@ class DigitalContentAbl {
     this.dao = DaoFactory.getDao("digitalContent");
   }
 
-  async get(awid, dtoIn) {}
+  async get(awid, dtoIn) {
+    let uuAppErrorMap = {};
+    const validationResult = this.validator.validate("digitalContentGetDToInType", dtoIn);
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Get.UnsupportedKeys,
+      Errors.Get.InvalidDtoIn
+    );
+
+    let dtoOut = await this.dao.get(awid, dtoIn.id);
+    if (!dtoOut) throw new Errors.Get.DigitalContentNotFound({ uuAppErrorMap });
+    
+
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }
 
   async list(awid, dtoIn) {}
 
