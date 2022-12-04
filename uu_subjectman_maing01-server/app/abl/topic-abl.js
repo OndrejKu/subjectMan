@@ -17,7 +17,7 @@ class TopicAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.getUnsupportedKeys.code,
+      WARNINGS.List.UnsupportedKeys.code,
       Errors.List.InvalidDtoIn
     );
 
@@ -41,7 +41,7 @@ class TopicAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.getUnsupportedKeys.code,
+      WARNINGS.Get.UnsupportedKeys.code,
       Errors.Get.InvalidDtoIn
     );
 
@@ -65,7 +65,7 @@ class TopicAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.updateUnsupportedKeys.code,
+      WARNINGS.Update.UnsupportedKeys.code,
       Errors.Update.InvalidDtoIn
     );
 
@@ -92,7 +92,7 @@ class TopicAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code,
+      WARNINGS.Create.UnsupportedKeys.code,
       Errors.Create.InvalidDtoIn
     );
 
