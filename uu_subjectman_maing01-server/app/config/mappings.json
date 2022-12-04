@@ -85,6 +85,11 @@
         "realization": "api/controllers/DigitalContentController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "digitalContent/get": {
+        "realization": "api/controllers/DigitalContentController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

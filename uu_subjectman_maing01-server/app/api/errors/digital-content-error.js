@@ -45,7 +45,12 @@ const List = {
   UC_CODE: `${DIGITAL_CONTENT_ERROR_PREFIX}list/`,
 };
 
+const Get = {
+  UC_CODE: `${DIGITAL_CONTENT_ERROR_PREFIX}get/`,
+};
+
 module.exports = {
+  Get,
   List,
   Update,
   Create,
