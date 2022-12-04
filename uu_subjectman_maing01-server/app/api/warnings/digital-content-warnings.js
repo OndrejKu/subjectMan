@@ -18,6 +18,11 @@ const Warnings = {
       code: `${Errors.Update.UU_CODE}unsupportedKeys`,
     },
   },
+  Get: {
+    UnsupportedKeys: {
+      code: `${Errors.Get.UU_CODE}unsupportedKeys`,
+    },
+  },
 };
 
 module.exports = Warnings;

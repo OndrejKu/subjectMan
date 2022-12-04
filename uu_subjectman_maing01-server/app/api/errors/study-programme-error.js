@@ -13,22 +13,64 @@ const Create = {
     }
     ///
   },
-  StudyProgrammeDaoCreateFailed: class extends SubjectmanMainUseCaseError {
+  DaoCreateFailed: class extends SubjectmanMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Create.UC_CODE}StudyProgrammeDaoCreateFailed`;
-      this.message = "Creation of study Programme failed.";
+      this.message = "Creation of study programme failed.";
     }
   },
-  StudyProgrammeNameNotUnique: class extends SubjectmanMainUseCaseError {
+};
+
+const Update = {
+  UC_CODE: `${STUDY_PROGRAMME_ERROR_PREFIX}update/`,
+  InvalidDtoIn: class extends SubjectmanMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}StudyProgrammeNameNotUnique`;
-      this.message = "Study Programme name already in database.";
+      this.code = `${Update.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid";
+    }
+    ///
+  },
+  DaoUpdateFailed: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}StudyProgrammeDaoUpdateFailed`;
+      this.message = "Creation of study programme failed.";
+    }
+  },
+  StudyProgrammeNotFound: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}StudyProgrammeNotFound`;
+      this.message = "Requested study programme does not exist";
+      this.status = 404;
+    }
+  },
+};
+
+const Get = {
+  UC_CODE: `${STUDY_PROGRAMME_ERROR_PREFIX}get/`,
+  InvalidDtoIn: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid";
+    }
+    ///
+  },
+  StudyProgrammeNotFound: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}StudyProgrammeNotFound`;
+      this.message = "Requested study programme does not exist";
+      this.status = 404;
     }
   },
 };
 
 module.exports = {
   Create,
+  Update,
+  Get
 };

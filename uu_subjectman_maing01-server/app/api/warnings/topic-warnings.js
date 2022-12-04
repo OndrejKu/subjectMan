@@ -3,17 +3,25 @@
 const Errors = require("../errors/subject-error.js");
 
 const Warnings = {
-  createUnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
+  Create: {
+    UnsupportedKeys: {
+      code: `${Errors.Create.UU_CODE}unsupportedKeys`,
+    },
   },
-  updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
+  Get: {
+    UnsupportedKeys: {
+      code: `${Errors.Get.UU_CODE}unsupportedKeys`,
+    },
   },
-  getUnsupportedKeys: {
-    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
+  List: {
+    UnsupportedKeys: {
+      code: `${Errors.List.UU_CODE}unsupportedKeys`,
+    },
   },
-  listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  Update: {
+    UnsupportedKeys: {
+      code: `${Errors.Update.UU_CODE}unsupportedKeys`,
+    },
   },
 };
 
