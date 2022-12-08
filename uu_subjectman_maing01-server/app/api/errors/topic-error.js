@@ -92,11 +92,12 @@ const Get = {
       this.message = "DtoIn is not valid.";
     }
   },
-  TopicDoesNotExistFailed: class extends SubjectmanMainUseCaseError {
+  TopicDoesNotExist: class extends SubjectmanMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Get.UC_CODE}topicDoesNotExist`;
       this.message = "UuObject topic does not exist.";
+      this.status = 404;
     }
   },
 };

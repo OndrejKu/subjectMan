@@ -9,6 +9,7 @@ class TopicAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("topic");
+    this.digitalContentDao = DaoFactory.getDao("digitalContent");
   }
 
   async list(awid, dtoIn) {
@@ -53,7 +54,7 @@ class TopicAbl {
     };
 
     let topic = await this.dao.getById(awid, dtoIn.id);
-    if (!topic) throw new Errors.Get.topicDoesNotExist({ uuAppErrorMap }, dtoIn);
+    if (!topic) throw new Errors.Get.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
 
     dtoOut.topic = topic;
     return dtoOut;
@@ -71,6 +72,29 @@ class TopicAbl {
 
     let dtoOut = { ...dtoIn };
     dtoIn.awid = awid;
+
+    let topic = await this.dao.getById(awid, dtoIn.id);
+    if (!topic) throw new Errors.Update.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
+
+    if (dtoIn.digitalContentList?.length > 0) {
+      let digitalContents = [];
+
+      dtoIn.digitalContentList.concat(topic.digitalContentList).forEach((element) => {
+        if (!digitalContents.includes(element)) {
+          digitalContents.push(element);
+        }
+      });
+      dtoIn.digitalContentList = digitalContents;
+
+      for (let index = 0; index < dtoIn.digitalContentList.length; index++) {
+        const element = dtoIn.digitalContentList[index];
+        let check = await this.digitalContentDao.get(awid, element);
+
+        if (!check) {
+          throw new Errors.Update.DigitalContentDoesNotExistFailed({ uuAppErrorMap }, element);
+        }
+      }
+    }
 
     try {
       dtoOut = await this.dao.update(dtoIn);
@@ -98,6 +122,23 @@ class TopicAbl {
 
     let dtoOut = { ...dtoIn };
     dtoIn.awid = awid;
+
+    if (dtoIn.digitalContentList?.length > 0) {
+      let digitalContents = [];
+      dtoIn.digitalContentList.forEach((element) => {
+        if (!digitalContents.includes(element)) {
+          digitalContents.push(element);
+        }
+      });
+      dtoIn.digitalContentList = digitalContents;
+      for (let index = 0; index < dtoIn.digitalContentList.length; index++) {
+        const element = dtoIn.digitalContentList[index];
+        let check = await this.digitalContentDao.get(awid, element);
+        if (check === null) {
+          throw new Errors.Create.DigitalContentDoesNotExistFailed({ uuAppErrorMap });
+        }
+      }
+    }
 
     try {
       dtoOut = await this.dao.create(dtoIn);
