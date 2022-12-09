@@ -7,7 +7,6 @@ class TopicMongo extends UuObjectDao {
     await super.createIndex({ digitalContentList: 1 }, { unique: true });
   }
   async create(uuObject) {
-    
     return await super.insertOne(uuObject);
   }
   async getById(awid, id) {
