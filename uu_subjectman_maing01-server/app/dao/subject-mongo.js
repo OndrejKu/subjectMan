@@ -15,20 +15,22 @@ class SubjectMongo extends UuObjectDao {
   async create(uuObject) {
     return await super.insertOne(uuObject);
   }
-
-  async get(awid, id) {
-    return await super.findOne({ id, awid });
+  async getById(awid, id) {
+    let filter = {
+      awid: awid,
+      id: id,
+    };
+    return await super.findOne(filter);
   }
-
-  async list(awid, name) {
-    const allItems = await super.find({ awid });
-    let x = allItems.itemList.filter((subject) => subject.name.toLowerCase().includes(name.toLowerCase()));
-    console.log(x);
-    return x;
+  async list(awid, sort = {}, pageInfo = {}) {
+    return await super.find({ awid }, pageInfo, sort);
   }
 
   async update(uuObject) {
-    let filter = { id: uuObject.id, awid: uuObject.awid };
+    let filter = {
+      awid: uuObject.awid,
+      id: uuObject.id,
+    };
     return await super.findOneAndUpdate(filter, uuObject, "NONE");
   }
 }

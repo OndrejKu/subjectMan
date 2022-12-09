@@ -24,7 +24,16 @@ class TopicAbl {
       Errors.List.InvalidDtoIn
     );
 
-    let dtoOut = await this.dao.list(awid, { name: dtoIn.order === "desc" ? -1 : 1 }, dtoIn.pageInfo);
+    let dtoOut = { ...dtoIn };
+
+    try {
+      dtoOut = await this.dao.list(awid, { name: dtoIn.order === "desc" ? -1 : 1 }, dtoIn.pageInfo);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.List.TopicDaoListFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
 
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
@@ -46,11 +55,16 @@ class TopicAbl {
       topic: {},
       uuAppErrorMap: uuAppErrorMap,
     };
+    try {
+      dtoOut.topic = await this.dao.getById(awid, dtoIn.id);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.Get.TopicDaoGetFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+    if (!dtoOut.topic) throw new Errors.Get.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
 
-    let topic = await this.dao.getById(awid, dtoIn.id);
-    if (!topic) throw new Errors.Get.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
-
-    dtoOut.topic = topic;
     return dtoOut;
   }
   //TODO validace subjectu a digitalContentu

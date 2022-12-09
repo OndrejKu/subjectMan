@@ -9,6 +9,7 @@ class SubjectAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("subject");
+    this.daoTopic = DaoFactory.getDao("topic");
   }
 
   async update(awid, dtoIn) {
@@ -60,10 +61,29 @@ class SubjectAbl {
       Errors.List.InvalidDtoIn
     );
 
-    let subjects;
-
+    let dtoOut = { ...dtoIn };
+    let sort = {};
+    switch (dtoIn.sortBy) {
+      case "name":
+        sort = {
+          name: dtoIn.order === "desc" ? -1 : 1,
+        };
+        break;
+      case "credits":
+        sort = {
+          credits: dtoIn.order === "desc" ? -1 : 1,
+        };
+        break;
+      case "lang":
+        sort = {
+          lang: dtoIn.order === "desc" ? -1 : 1,
+        };
+        break;
+      default:
+        break;
+    }
     try {
-      subjects = await this.dao.list(awid, dtoIn.name);
+      dtoOut = await this.dao.list(awid, sort, dtoIn.pageInfo);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.List.SubjectDaoListFailed({ uuAppErrorMap }, e);
@@ -71,10 +91,7 @@ class SubjectAbl {
       throw e;
     }
 
-    const dtoOut = {
-      items: [...subjects],
-      uuAppErrorMap,
-    };
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
 
