@@ -17,5 +17,9 @@ const topicGetDtoInType = shape({
 });
 
 const topicListDtoInType = shape({
-  _digitalContentId: uu5String(255),
+  order: oneOf(["asc", "desc"]),
+  pageInfo: shape({
+    pageIndex: integer(),
+    pageSize: integer(),
+  }),
 });

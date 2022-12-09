@@ -13,25 +13,20 @@ class TopicAbl {
   }
 
   async list(awid, dtoIn) {
-    let validationResult = this.validator.validate("listGetDtoInType", dtoIn);
+    let uuAppErrorMap = {};
+    const validationResult = this.validator.validate("topicListDtoInType", dtoIn);
 
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.List.UnsupportedKeys.code,
+      uuAppErrorMap,
+      WARNINGS.List.UnsupportedKeys,
       Errors.List.InvalidDtoIn
     );
 
-    let dtoOut = {
-      awid: awid,
-      uuAppErrorMap: uuAppErrorMap,
-      topics: [],
-    };
+    let dtoOut = await this.dao.list(awid, { name: dtoIn.order === "desc" ? -1 : 1 }, dtoIn.pageInfo);
 
-    let topics = await this.dao.get(awid);
-
-    console.log(uuAppErrorMap);
-    dtoOut.topics = topics;
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
 
@@ -48,9 +43,8 @@ class TopicAbl {
 
     // HDS 2
     let dtoOut = {
-      awid: awid,
-      uuAppErrorMap: uuAppErrorMap,
       topic: {},
+      uuAppErrorMap: uuAppErrorMap,
     };
 
     let topic = await this.dao.getById(awid, dtoIn.id);
@@ -87,17 +81,21 @@ class TopicAbl {
       dtoIn.digitalContentList = digitalContents;
 
       for (let index = 0; index < dtoIn.digitalContentList.length; index++) {
-        const element = dtoIn.digitalContentList[index];
-        let check = await this.digitalContentDao.get(awid, element);
-
+        let check = await this.digitalContentDao.get(awid, dtoIn.digitalContentList[index]);
         if (!check) {
-          throw new Errors.Update.DigitalContentDoesNotExistFailed({ uuAppErrorMap }, element);
+          throw new Errors.Update.DigitalContentDoesNotExistFailed({ uuAppErrorMap });
         }
       }
     }
 
     try {
-      dtoOut = await this.dao.update(dtoIn);
+      dtoOut = await this.dao.update({
+        id: dtoIn.id,
+        name: dtoIn.name,
+        description: dtoIn.description,
+        awid: dtoIn.awid,
+        digitalContentList: dtoIn.digitalContentList,
+      });
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.Update.TopicDaoUpdateFailed({ uuAppErrorMap }, e);
@@ -132,8 +130,7 @@ class TopicAbl {
       });
       dtoIn.digitalContentList = digitalContents;
       for (let index = 0; index < dtoIn.digitalContentList.length; index++) {
-        const element = dtoIn.digitalContentList[index];
-        let check = await this.digitalContentDao.get(awid, element);
+        let check = await this.digitalContentDao.get(awid, dtoIn.digitalContentList[index]);
         if (check === null) {
           throw new Errors.Create.DigitalContentDoesNotExistFailed({ uuAppErrorMap });
         }
@@ -141,7 +138,12 @@ class TopicAbl {
     }
 
     try {
-      dtoOut = await this.dao.create(dtoIn);
+      dtoOut = await this.dao.create({
+        name: dtoIn.name,
+        description: dtoIn.description,
+        awid: dtoIn.awid,
+        digitalContentList: dtoIn.digitalContentList,
+      });
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.Create.TopicDaoCreateFailed({ uuAppErrorMap }, e);

@@ -16,11 +16,10 @@ class TopicMongo extends UuObjectDao {
     };
     return await super.findOne(filter);
   }
-  async get(awid, pageInfo = {}) {
-    console.log(awid);
-    console.log();
-    return await super.find({ awid }, pageInfo, {});
+  async list(awid, sort = {}, pageInfo = {}) {
+    return await super.find({ awid }, pageInfo, sort);
   }
+
   async update(uuObject) {
     let filter = {
       awid: uuObject.awid,
