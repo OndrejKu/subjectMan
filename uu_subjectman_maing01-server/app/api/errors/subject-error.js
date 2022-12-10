@@ -26,6 +26,13 @@ const Create = {
       this.message = "Subject name is already in database.";
     }
   },
+  TopicDoesNotExist: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}topicDoesNotExist`;
+      this.message = "UuObject topic does not exist.";
+    }
+  },
 };
 
 const Get = {
@@ -47,8 +54,9 @@ const Get = {
   SubjectNotFound: class extends SubjectmanMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}SubjectNotFound`;
+      this.code = `${Update.UC_CODE}SubjectNotFound`;
       this.message = "Subject not found.";
+      this.status = 404;
     }
   },
 };
@@ -92,6 +100,7 @@ const Update = {
       super(...arguments);
       this.code = `${Update.UC_CODE}SubjectNotFound`;
       this.message = "Subject not found.";
+      this.status = 404;
     }
   },
   SubjectNameNotUnique: class extends SubjectmanMainUseCaseError {
@@ -99,6 +108,13 @@ const Update = {
       super(...arguments);
       this.code = `${Update.UC_CODE}SubjectNameNotUnique`;
       this.message = "Subject name is already in database.";
+    }
+  },
+  TopicDoesNotExist: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}topicDoesNotExist`;
+      this.message = "UuObject topic does not exist.";
     }
   },
 };

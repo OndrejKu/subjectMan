@@ -31,6 +31,21 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "studyProgramme/update": {
+        "realization": "api/controllers/StudyProgrammeController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "studyProgramme/get": {
+        "realization": "api/controllers/StudyProgrammeController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "studyProgramme/list": {
+        "realization": "api/controllers/StudyProgrammeController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "subject/create": {
         "realization": "api/controllers/SubjectController.create",
         "httpMethod": "POST",
@@ -83,6 +98,11 @@
       },
       "digitalContent/list": {
         "realization": "api/controllers/DigitalContentController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "digitalContent/get": {
+        "realization": "api/controllers/DigitalContentController.get",
         "httpMethod": "GET",
         "type": "CMD"
       }

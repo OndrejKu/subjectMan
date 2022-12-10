@@ -9,28 +9,33 @@ class TopicAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("topic");
+    this.digitalContentDao = DaoFactory.getDao("digitalContent");
   }
 
   async list(awid, dtoIn) {
-    let validationResult = this.validator.validate("listGetDtoInType", dtoIn);
+    let uuAppErrorMap = {};
+    const validationResult = this.validator.validate("topicListDtoInType", dtoIn);
 
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.getUnsupportedKeys.code,
+      uuAppErrorMap,
+      WARNINGS.List.UnsupportedKeys,
       Errors.List.InvalidDtoIn
     );
 
-    let dtoOut = {
-      awid: awid,
-      uuAppErrorMap: uuAppErrorMap,
-      topics: [],
-    };
+    let dtoOut = { ...dtoIn };
 
-    let topics = await this.dao.get(awid);
+    try {
+      dtoOut = await this.dao.list(awid, { name: dtoIn.order === "desc" ? -1 : 1 }, dtoIn.pageInfo);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.List.TopicDaoListFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
 
-    console.log(uuAppErrorMap);
-    dtoOut.topics = topics;
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
 
@@ -41,21 +46,25 @@ class TopicAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.getUnsupportedKeys.code,
+      WARNINGS.Get.UnsupportedKeys.code,
       Errors.Get.InvalidDtoIn
     );
 
     // HDS 2
     let dtoOut = {
-      awid: awid,
-      uuAppErrorMap: uuAppErrorMap,
       topic: {},
+      uuAppErrorMap: uuAppErrorMap,
     };
+    try {
+      dtoOut.topic = await this.dao.getById(awid, dtoIn.id);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.Get.TopicDaoGetFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+    if (!dtoOut.topic) throw new Errors.Get.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
 
-    let topic = await this.dao.getById(awid, dtoIn.id);
-    if (!topic) throw new Errors.Get.topicDoesNotExist({ uuAppErrorMap }, dtoIn);
-
-    dtoOut.topic = topic;
     return dtoOut;
   }
   //TODO validace subjectu a digitalContentu
@@ -65,15 +74,42 @@ class TopicAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.updateUnsupportedKeys.code,
+      WARNINGS.Update.UnsupportedKeys.code,
       Errors.Update.InvalidDtoIn
     );
 
     let dtoOut = { ...dtoIn };
     dtoIn.awid = awid;
 
+    let topic = await this.dao.getById(awid, dtoIn.id);
+    if (!topic) throw new Errors.Update.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
+
+    if (dtoIn.digitalContentList?.length > 0) {
+      let digitalContents = [];
+
+      dtoIn.digitalContentList.concat(topic.digitalContentList).forEach((element) => {
+        if (!digitalContents.includes(element)) {
+          digitalContents.push(element);
+        }
+      });
+      dtoIn.digitalContentList = digitalContents;
+
+      for (let index = 0; index < dtoIn.digitalContentList.length; index++) {
+        let check = await this.digitalContentDao.get(awid, dtoIn.digitalContentList[index]);
+        if (!check) {
+          throw new Errors.Update.DigitalContentDoesNotExistFailed({ uuAppErrorMap });
+        }
+      }
+    }
+
     try {
-      dtoOut = await this.dao.update(dtoIn);
+      dtoOut = await this.dao.update({
+        id: dtoIn.id,
+        name: dtoIn.name,
+        description: dtoIn.description,
+        awid: dtoIn.awid,
+        digitalContentList: dtoIn.digitalContentList,
+      });
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.Update.TopicDaoUpdateFailed({ uuAppErrorMap }, e);
@@ -92,15 +128,36 @@ class TopicAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code,
+      WARNINGS.Create.UnsupportedKeys.code,
       Errors.Create.InvalidDtoIn
     );
 
     let dtoOut = { ...dtoIn };
     dtoIn.awid = awid;
 
+    if (dtoIn.digitalContentList?.length > 0) {
+      let digitalContents = [];
+      dtoIn.digitalContentList.forEach((element) => {
+        if (!digitalContents.includes(element)) {
+          digitalContents.push(element);
+        }
+      });
+      dtoIn.digitalContentList = digitalContents;
+      for (let index = 0; index < dtoIn.digitalContentList.length; index++) {
+        let check = await this.digitalContentDao.get(awid, dtoIn.digitalContentList[index]);
+        if (check === null) {
+          throw new Errors.Create.DigitalContentDoesNotExistFailed({ uuAppErrorMap });
+        }
+      }
+    }
+
     try {
-      dtoOut = await this.dao.create(dtoIn);
+      dtoOut = await this.dao.create({
+        name: dtoIn.name,
+        description: dtoIn.description,
+        awid: dtoIn.awid,
+        digitalContentList: dtoIn.digitalContentList,
+      });
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.Create.TopicDaoCreateFailed({ uuAppErrorMap }, e);

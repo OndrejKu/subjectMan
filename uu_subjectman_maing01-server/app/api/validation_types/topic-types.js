@@ -2,29 +2,24 @@
 const topicCreateDtoInType = shape({
   name: uu5String(255),
   description: uu5String(4000),
-  digitalContentList: array(
-    shape({
-      id: uu5String(50).isRequired(),
-    })
-  ),
+  digitalContentList: array(id().isRequired()),
 });
 
 const topicUpdateDtoInType = shape({
-  id: uu5String(50).isRequired(),
+  id: id().isRequired(),
   name: uu5String(255),
   description: uu5String(4000),
-  digitalContentList: array(
-    shape({
-      id: uu5String(50).isRequired(),
-    })
-  ),
+  digitalContentList: array(id().isRequired()),
 });
 
 const topicGetDtoInType = shape({
-  id: uu5String(50).isRequired(),
+  id: id().isRequired(),
 });
 
 const topicListDtoInType = shape({
-  name: uu5String(255),
-  _digitalContentId: uu5String(255),
+  order: oneOf(["asc", "desc"]),
+  pageInfo: shape({
+    pageIndex: integer(),
+    pageSize: integer(),
+  }),
 });

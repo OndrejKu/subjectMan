@@ -3,6 +3,10 @@ const DigitalContentAbl = require("../../abl/digital-content-abl.js");
 
 class DigitalContentController {
 
+  get(ucEnv) {
+    return DigitalContentAbl.get(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   list(ucEnv) {
     return DigitalContentAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

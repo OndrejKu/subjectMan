@@ -15,6 +15,25 @@ class StudyProgrammeMongo extends UuObjectDao {
   async create(uuObject) {
     return await super.insertOne(uuObject);
   }
+
+  async list(awid, sort = {}, pageInfo = {}) {
+    return await super.find({ awid }, pageInfo, sort);
+  }
+
+  async update(uuObject) {
+    let filter = {
+      awid: uuObject.awid,
+      id: uuObject.id,
+    };
+    return await super.findOneAndUpdate(filter, uuObject, "NONE");
+  }
+  async get(awid, id) {
+    let filter = {
+      awid,
+      id,
+    };
+    return await super.findOne(filter);
+  }
 }
 
 module.exports = StudyProgrammeMongo;

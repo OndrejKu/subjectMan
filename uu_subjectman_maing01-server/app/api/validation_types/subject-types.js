@@ -37,5 +37,10 @@ const subjectGetDtoInType = shape({
 });
 
 const subjectListDtoInType = shape({
-  name: string(255).isRequired(),
+  sortBy: oneOf(["name", "credits", "lang"]),
+  order: oneOf(["asc", "desc"]),
+  pageInfo: shape({
+    pageIndex: integer(),
+    pageSize: integer(),
+  }),
 });
