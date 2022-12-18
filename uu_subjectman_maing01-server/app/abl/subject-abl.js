@@ -10,6 +10,7 @@ class SubjectAbl {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("subject");
     this.daoTopic = DaoFactory.getDao("topic");
+    this.daoStudyProgramme = DaoFactory.getDao("studyProgramme");
   }
 
   async update(awid, dtoIn) {
@@ -24,14 +25,54 @@ class SubjectAbl {
       Errors.Update.InvalidDtoIn
     );
 
-    const uuObject = {
-      ...dtoIn,
+    let subject = await this.dao.getById(awid, dtoIn.id);
+    if (!subject) throw new Errors.Update.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
+
+    if (dtoIn.studyProgrammeId) {
+      let check = await this.daoStudyProgramme.get(awid, dtoIn.studyProgrammeId);
+      if (check === null) {
+        throw new Errors.Update.StudyProgrammeDoesNotExist({ uuAppErrorMap });
+      }
+    }
+
+    if (dtoIn.topicIdList?.length > 0) {
+      let topics = [];
+      dtoIn.topicIdList.concat(subject.topicIdList).forEach((element) => {
+        if (!topics.includes(element)) {
+          topics.push(element);
+        }
+      });
+      dtoIn.topicIdList = topics.filter((n) => n);
+
+      for (let index = 0; index < dtoIn.topicIdList.length; index++) {
+        const element = dtoIn.topicIdList[index];
+
+        let check = await this.daoTopic.getById(awid, element);
+
+        if (check === null) {
+          throw new Errors.Update.TopicDoesNotExist({ uuAppErrorMap });
+        }
+      }
+    } else {
+      dtoIn.topicIdList = subject.topicIdList;
+    }
+
+    subject = {
+      id: dtoIn.id,
+      name: dtoIn.name ? dtoIn.name : subject.name,
+      description: dtoIn.description ? dtoIn.description : subject.description,
+      credits: dtoIn.credits ? dtoIn.credits : subject.credits,
+      garantId: dtoIn.garantId ? dtoIn.garantId : subject.garantId,
+      studyProgrammeId: dtoIn.studyProgrammeId ? dtoIn.studyProgrammeId : subject.studyProgrammeId,
+      lang: dtoIn.lang ? dtoIn.lang : subject.lang,
+      goal: dtoIn.goal ? dtoIn.goal : subject.goal,
+      topicIdList: dtoIn.topicIdList,
       awid,
     };
-    let updatedItem;
+
     try {
       //TODO: Validace že topicId a digitalContentIds existují
-      updatedItem = await this.dao.update(uuObject);
+      subject = await this.dao.update(subject);
     } catch (e) {
       if (e instanceof DuplicateKey) {
         throw new Errors.Update.SubjectNameNotUnique({ uuAppErrorMap }, { subjectName: dtoIn.name });
@@ -43,7 +84,7 @@ class SubjectAbl {
     }
 
     const dtoOut = {
-      ...updatedItem,
+      ...subject,
       uuAppErrorMap,
     };
     return dtoOut;
@@ -110,7 +151,7 @@ class SubjectAbl {
     let subject;
 
     try {
-      subject = await this.dao.get(awid, dtoIn.id);
+      subject = await this.dao.getById(awid, dtoIn.id);
 
       if (!subject) {
         throw new Errors.Get.SubjectNotFound({ uuAppErrorMap });
@@ -141,14 +182,45 @@ class SubjectAbl {
       Errors.Create.InvalidDtoIn
     );
 
-    const uuObject = {
-      ...dtoIn,
+    if (dtoIn.studyProgrammeId) {
+      let check = await this.daoStudyProgramme.get(awid, dtoIn.studyProgrammeId);
+      if (check === null) {
+        throw new Errors.Create.StudyProgrammeDoesNotExist({ uuAppErrorMap });
+      }
+    }
+
+    if (dtoIn.topicIdList?.length > 0) {
+      let topics = [];
+      dtoIn.topicIdList.forEach((element) => {
+        if (!topics.includes(element)) {
+          topics.push(element);
+        }
+      });
+      dtoIn.topicIdList = topics;
+      for (let index = 0; index < dtoIn.topicIdList.length; index++) {
+        let check = await this.daoTopic.getById(awid, dtoIn.topicIdList[index]);
+        if (check === null) {
+          throw new Errors.Create.TopicDoesNotExist({ uuAppErrorMap });
+        }
+      }
+    }
+
+    let subject = {
+      name: dtoIn.name,
+      description: dtoIn.description,
+      credits: dtoIn.credits,
+      garantId: dtoIn.garantId,
+      studyProgrammeId: dtoIn.studyProgrammeId,
+      lang: dtoIn.lang,
+      goal: dtoIn.goal,
+      topicIdList: dtoIn.topicIdList,
       awid,
     };
 
     try {
-      //TODO: Validace že topicId a digitalContentIds existují
-      await this.dao.create(uuObject);
+      //TODO: Validace že topicId a digitalContentIds existuje
+
+      subject = await this.dao.create(subject);
     } catch (e) {
       if (e instanceof DuplicateKey) {
         throw new Errors.Create.SubjectNameNotUnique({ uuAppErrorMap }, { subjectName: dtoIn.name });
@@ -160,7 +232,7 @@ class SubjectAbl {
     }
 
     const dtoOut = {
-      ...uuObject,
+      ...subject,
       uuAppErrorMap,
     };
     return dtoOut;
