@@ -29,8 +29,15 @@ const Create = {
   TopicDoesNotExist: class extends SubjectmanMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}topicDoesNotExist`;
+      this.code = `${Create.UC_CODE}topicDoesNotExist`;
       this.message = "UuObject topic does not exist.";
+    }
+  },
+  StudyProgrammeDoesNotExist: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}studyProgrammeDoesNotExist`;
+      this.message = "UuObject studyProgramme does not exist.";
     }
   },
 };
@@ -54,7 +61,7 @@ const Get = {
   SubjectNotFound: class extends SubjectmanMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}SubjectNotFound`;
+      this.code = `${Get.UC_CODE}SubjectNotFound`;
       this.message = "Subject not found.";
       this.status = 404;
     }
@@ -113,8 +120,15 @@ const Update = {
   TopicDoesNotExist: class extends SubjectmanMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}topicDoesNotExist`;
+      this.code = `${Update.UC_CODE}topicDoesNotExist`;
       this.message = "UuObject topic does not exist.";
+    }
+  },
+  StudyProgrammeDoesNotExist: class extends SubjectmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}studyProgrammeDoesNotExist`;
+      this.message = "UuObject studyProgramme does not exist.";
     }
   },
 };

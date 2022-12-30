@@ -4,36 +4,26 @@ const subjectCreateDtoInType = shape({
   description: uu5String(4000),
   credits: number(),
   garantId: uuIdentity().isRequired(),
-  studyProgrammeId: uu5String(50).isRequired(),
+  studyProgrammeId: id().isRequired(),
   lang: uu5String(3).isRequired(),
   goal: uu5String(255).isRequired(),
-  topicList: array(
-    shape({
-      id: uu5String(50).isRequired(),
-      orderNumber: number().isRequired(),
-    })
-  ),
+  topicIdList: array(id().isRequired()),
 });
 
 const subjectUpdateDtoInType = shape({
-  id: uu5String(50).isRequired(),
+  id: id().isRequired(),
   name: uu5String(255),
   description: uu5String(4000),
   credits: number(),
-  garantId: uuIdentity().isRequired(),
-  studyProgrammeId: uu5String(50).isRequired(),
-  lang: uu5String(3).isRequired(),
-  goal: uu5String(255).isRequired(),
-  topicList: array(
-    shape({
-      id: uu5String(50).isRequired(),
-      orderNumber: number().isRequired(),
-    })
-  ),
+  garantId: uuIdentity(),
+  studyProgrammeId: id(),
+  lang: uu5String(3),
+  goal: uu5String(255),
+  topicIdList: array(id().isRequired()),
 });
 
 const subjectGetDtoInType = shape({
-  id: string().isRequired(),
+  id: id().isRequired(),
 });
 
 const subjectListDtoInType = shape({
