@@ -12,7 +12,7 @@ const About = {
     },
     authorities: [
       {
-        name: "Name Surname",
+        name: "Tvůrci aplikace",
         uri: "https://www.unicorn.com/",
       },
     ],
