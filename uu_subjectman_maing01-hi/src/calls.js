@@ -47,21 +47,15 @@ const Calls = {
   },
 
   getCommandUri(useCase, baseUri = CALLS_BASE_URI) {
-    console.log(useCase)
-    console.log(baseUri)
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
   },
 
   listStudyProgramme(dtoIn) {
     let commandUri = Calls.getCommandUri("studyProgramme/list");
-    // console.log("listStudyProgramme")
-    // console.log(dtoIn)
     return Calls.call("get", commandUri, dtoIn);
   },
 
   createStudyProgramme(dtoIn) {
-    console.log("---calls.js----")
-    console.log(dtoIn)
     let commandUri = Calls.getCommandUri("studyProgramme/create");
     return Calls.call("post", commandUri, dtoIn);
   },
@@ -72,8 +66,6 @@ const Calls = {
   },
 
   updateStudyProgramme(dtoIn) {
-    console.log("---calls.js----")
-    console.log(dtoIn)
     let commandUri = Calls.getCommandUri("studyProgramme/update");
     return Calls.call("post", commandUri, dtoIn);
   },
@@ -81,8 +73,8 @@ const Calls = {
     let commandUri = Calls.getCommandUri("digitalContent/list");
     return Calls.call("get", commandUri, dtoIn);
   },
-  listSubjects(dtoIn) {
-    let commandUri = Calls.getCommandUri("subject/list");
+  getTopic(dtoIn) {
+    let commandUri = Calls.getCommandUri("topic/get");
     return Calls.call("get", commandUri, dtoIn);
   },
   getSubject(dtoIn) {
@@ -90,9 +82,8 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
   listTopic(dtoIn) {
-    console.log("---listTopic---")
-    console.log(dtoIn)
     let commandUri = Calls.getCommandUri("topic/list");
+    return Calls.call("get", commandUri, dtoIn);
   }
 };
 

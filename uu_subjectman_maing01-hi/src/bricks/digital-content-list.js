@@ -40,7 +40,7 @@ const DigitalContentList = createVisualComponent({
     //@@viewOn:render
     return (
       <>
-        <h2 className={Css.centerText()}>Digital Content</h2>
+        {/*<h2 className={Css.centerText()}>Digital Content</h2>*/}
         <Uu5Elements.Grid className={Css.setToCenterWithText()}
           templateColumns={`repeat(${
             screensize === "xl" ? 6 : screensize === "l" ? 4 : screensize === "m" ? 3 : screensize === "s" ? 2 : 1
