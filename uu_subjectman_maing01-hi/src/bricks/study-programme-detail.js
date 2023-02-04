@@ -60,16 +60,12 @@ const StudyProgrammeDetail = createVisualComponent({
     // console.log(value)
     const {addAlert, updateAlert} = Uu5Elements.useAlertBus();
     //@@viewOff:private
-
+    console.log("---study-programme-detail.js---")
+    console.log("context")
+    console.log(useContext(StudyProgrammeContext))
     //@@viewOn:hooks
     // const value = useContext(useStudyProgramme);
     // studyProgrammeContext
-
-
-    function renderContextData( id ) {
-      const dtoOut = useContext(StudyProgrammeContext);
-      console.log(dtoOut);
-    }
     //@@viewOff:hooks
 
     //@@viewOn:interface
@@ -82,34 +78,6 @@ const StudyProgrammeDetail = createVisualComponent({
 
     return (
       <div>
-        <RouteBar name="routeBar" id="6983038 "/>
-        <SubjectManCarousel name="SubjectManCarousel" id="6438025"/>
-        <div className={Config.Css.css({padding: 32})}>
-          <Uu5Elements.Block
-            header={
-              <Uu5Elements.Grid templateColumns={"80% 5%"}>
-                <h1>{studyProgramme.name}<span className={Css.degreeBadge()}>{studyProgramme.degreeOfStudy}</span></h1>
-                <Uu5Elements.Button style={'float: right'} size="xl" colorScheme={'green'}
-                                    onClick={onSubmit}>Apply</Uu5Elements.Button>
-              </Uu5Elements.Grid>
-            }
-          >
-          </Uu5Elements.Block>
-          {/*<Uu5Elements.Grid templateColumns={"20% 70%"}>*/}
-          {/*<img*/}
-          {/*  src="https://img.freepik.com/premium-vector/software-developers-programmers-work-man-sitting-desk-with-laptop-male-coder-working-web-development_102902-6454.jpg?w=900"*/}
-          {/*  style={{width: "350px"}}*/}
-          {/*/>*/}
-          <Uu5Elements.Text category="story" segment="body" type="major">
-
-            {studyProgramme.description}
-          </Uu5Elements.Text>
-          {/*</Uu5Elements.Grid>*/}
-        </div>
-        <img className={Config.Css.css({padding: 32})}
-             src="https://img.freepik.com/free-vector/awesome-mobile-software-application-development-concept-mobile-phone-with-big-gear_39422-984.jpg?w=900&t=st=1675210344~exp=1675210944~hmac=9d6e234877b8bca7d6c9535b7c83acdc3eb4f922bb3403a5720e8a8998922845"
-          // style={{width: "350px"}}
-        />
       </div>
 
 
