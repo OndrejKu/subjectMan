@@ -1,6 +1,6 @@
 {
   "product": "uu_subjectman_maing01",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "License Commercial",
   "description": {
     "en": "",
@@ -8,7 +8,7 @@
   },
   "devkit": {
     "development": {
-      "appBoxLocationUri": "----- VALUE REQUIRED -----",
+      "appBoxLocationUri": "ues:UCL-BT:OPR.RSP/APPBOXES",
       "appDeploymentUri": null
     }
   },

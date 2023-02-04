@@ -3,7 +3,7 @@
   "schemaSpecificationUri": "https://uuapp.plus4u.net/uu-bookkit-maing01/bef682626ed943f28cde360ccb325981/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
     "code": "UU.SUBJECTMAN.MAING01",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "name": "uuSubjectmanMaing01",
     "description": "",
     "license": "License Commercial",
@@ -17,7 +17,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": null,
+        "appPackUri": "ues:UCL-BT:UUN.BPMI22WDL06.MAING01/APPBOX-0.1.1:UUN.BPMI22WDL06.MAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.6"
       }
     },
@@ -29,7 +29,6 @@
         "alias": "primary"
       }
     },
-    "uuConfigMap": {
-    }
+    "uuConfigMap": {}
   }
 }
