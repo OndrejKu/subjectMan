@@ -10,11 +10,10 @@ import TopicList from "../bricks/topic-list";
 import StudyProgrammeList from "../bricks/study-programme-list";
 import RouteBar from "../core/route-bar";
 import SubjectManCarousel from "../bricks/subject-man-carousel";
-
+import {adminList} from "../config/authorities"
 //@@viewOff:imports
 
 //@@viewOn:constants
-const adminList = ['6-442-1']
 
 
 //@@viewOff:constants

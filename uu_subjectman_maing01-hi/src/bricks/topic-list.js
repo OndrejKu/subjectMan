@@ -57,7 +57,7 @@ const TopicList = createVisualComponent({
 
     //@@viewOn:render
     if (topics.length === 0) {
-      return <UU5.Common.Error content="No study programme to show"/>;
+      return <UU5.Common.Error content="No topics to show!"/>;
 
     }
 

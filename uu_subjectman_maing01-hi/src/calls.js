@@ -47,15 +47,11 @@ const Calls = {
   },
 
   getCommandUri(useCase, baseUri = CALLS_BASE_URI) {
-    console.log(useCase)
-    console.log(baseUri)
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
   },
 
   listStudyProgramme(dtoIn) {
     let commandUri = Calls.getCommandUri("studyProgramme/list");
-    // console.log("listStudyProgramme")
-    // console.log(dtoIn)
     return Calls.call("get", commandUri, dtoIn);
   },
 
@@ -86,9 +82,8 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
   listTopic(dtoIn) {
-    console.log("---listTopic---")
-    console.log(dtoIn)
     let commandUri = Calls.getCommandUri("topic/list");
+    return Calls.call("get", commandUri, dtoIn);
   }
 };
 
