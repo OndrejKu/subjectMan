@@ -124,7 +124,7 @@ class SubjectAbl {
         break;
     }
     try {
-      dtoOut = await this.dao.list(awid, sort, dtoIn.pageInfo);
+      dtoOut = await this.dao.list(awid, sort, dtoIn.pageInfo, dtoIn.studyProgrammeId);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.List.SubjectDaoListFailed({ uuAppErrorMap }, e);
