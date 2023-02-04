@@ -1,7 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import {createVisualComponent, Utils, Content, useRef, useContext, useRoute} from "uu5g05";
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
+import UU5 from "uu5g04";
 import Css from "./main-css";
 //@@viewOff:imports
 
@@ -14,40 +15,50 @@ import Css from "./main-css";
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const DigitalContent = createVisualComponent({
+const Topic = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "DigitalContent",
+  uu5Tag: Config.TAG + "Topic",
   nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    topic:  UU5.PropTypes.shape({
+      id: UU5.PropTypes.string.isRequired,
+      name: UU5.PropTypes.string.isRequired
+    }),
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    topic: null,
+  },
   //@@viewOff:defaultProps
 
-  render({digitalContent}) {
+  render({topic}) {
     //@@viewOn:private
-    const data = digitalContent.data;
+    const [, setRoute] = useRoute();
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
+    if (!Topic) return null;
 
     return (
-      <Uu5Elements.Block
+      <Uu5Elements.Block className={Css.backgroundImage()}
         card="full"
         colorScheme="dark-blue"
+        significance="highlighted"
         headerType="title"
-        header={data.title}
+        header={topic.name}
         // footer={}
-        key={data.id}
+        key={topic.id}
+        // onClick=alert("Clicked on detail")
       >
-        <a href={data.link}>Link to {data.type}</a>
+        {/*{<span className={Css.degreeBadge()}>{Topic.degreeOfStudy}</span>}*/}
       </Uu5Elements.Block>
     )
     //@@viewOff:render
@@ -55,6 +66,6 @@ const DigitalContent = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { DigitalContent };
-export default DigitalContent;
+export { Topic };
+export default Topic;
 //@@viewOff:exports

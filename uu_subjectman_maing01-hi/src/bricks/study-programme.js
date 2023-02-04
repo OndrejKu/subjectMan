@@ -24,7 +24,7 @@ const StudyProgramme = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    StudyProgramme:  UU5.PropTypes.shape({
+    studyProgram:  UU5.PropTypes.shape({
       id: UU5.PropTypes.string.isRequired,
       name: UU5.PropTypes.string.isRequired
     }),
@@ -36,38 +36,26 @@ const StudyProgramme = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    StudyProgramme: null,
+    studyProgram: null,
     onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {}
   },
   //@@viewOff:defaultProps
 
-  render({StudyProgramme, onDetail, onUpdate, onDelete }) {
+  render({studyProgram, onDetail, onUpdate, onDelete }) {
     //@@viewOn:private
-    const [, setRoute] = useRoute();
-    // const {
-    //   data: { newData }
-    // } = useContext(StudyProgrammeContext);
-
-    // const handleUpdate = () => "Updated!"
-    // const handleCreate = () => "Updated!"
-    // const handleDetail = () => setRoute("studyProgrammeDetail", { id: StudyProgramme.id })
-    // const handleDetail = () => setRoute("studyProgrammeDetail", { ...StudyProgramme })
-
     function handleUpdate() {
-
-      onUpdate(StudyProgramme);
-      // return newData
+      onUpdate(studyProgram);
     }
 
     function handleDetail(){
-      onDetail(StudyProgramme)
+      onDetail(studyProgram)
       // return dtoInStudyProgramme
     }
 
     function handleDelete() {
-      onDelete(StudyProgramme);
+      onDelete(studyProgram);
     }
 
     //@@viewOff:private
@@ -76,20 +64,19 @@ const StudyProgramme = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    if (!StudyProgramme) return null;
+    if (!studyProgram) return null;
 
     return (
       <Uu5Elements.Block className={Css.backgroundImage()}
-        card="full"
-        colorScheme="dark-blue"
-        significance="highlighted"
-        headerType="title"
-        header={StudyProgramme.name}
-        // footer={}
-        key={StudyProgramme.id}
-        onClick={handleDetail}
+                         card="full"
+                         colorScheme="dark-blue"
+                         significance="highlighted"
+                         headerType="title"
+                         header={studyProgram.name}
+                         key={studyProgram.id}
+                         onClick={handleDetail}
       >
-        {<span className={Css.degreeBadge()}>{StudyProgramme.degreeOfStudy}</span>}
+        {<span className={Css.degreeBadge()}>{studyProgram.degreeOfStudy}</span>}
       </Uu5Elements.Block>
     )
     //@@viewOff:render

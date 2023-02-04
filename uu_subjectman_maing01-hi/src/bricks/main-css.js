@@ -41,7 +41,7 @@ const uu5ElementsBox = () => Config.Css.css`
 const test = () => Config.Css.css`
   position:absolute;
   left:0;
-  bottom:0;
+  top:0;
   right:0;
   `;
 
@@ -52,6 +52,13 @@ const backgroundImage = () => Config.Css.css`
   height: 250px;
   `;
 
+const adminPanelIcons = () => Config.Css.css`
+  margin-left: 16px;
+  margin-right: 32px;
+  font-size: 30px;
+  margin-right: 16px;
+  float: right;
+`;
 
 export default {
   degreeBadge,
@@ -59,6 +66,7 @@ export default {
   setToCenterWithText,
   uu5ElementsBox,
   backgroundImage,
-  test,
   centerText,
+  adminPanelIcons,
+  test
 };

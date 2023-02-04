@@ -120,9 +120,9 @@ const RouteBar = createVisualComponent({
             id="8330618"
           />
           <Uu5Elements.Icon
-            icon="mdi-book-open"
+            icon="mdi-emoticon-poop"
             className={icons()}
-            onClick={() => setRoute()}
+            onClick={() => setRoute("topics")}
             tooltip=""
             name=""
             id="2320075"
