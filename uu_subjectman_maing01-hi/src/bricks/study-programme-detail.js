@@ -73,9 +73,6 @@ const StudyProgrammeDetail = createVisualComponent({
     // console.log(value)
     const { addAlert, updateAlert } = Uu5Elements.useAlertBus();
     //@@viewOff:private
-    console.log("---study-programme-detail.js---")
-    console.log("context")
-    console.log(useContext(StudyProgrammeContext))
     //@@viewOn:hooks
     // const value = useContext(useStudyProgramme);
     // studyProgrammeContext
@@ -100,32 +97,32 @@ const StudyProgrammeDetail = createVisualComponent({
     }
 
     function renderSubjectData(subjectData) {
-      console.log(subjectData);
-      return (<div className={Config.Css.css({ padding: 32 })}>
-        <Uu5Elements.Text category="interface" segment="title" type="major">
-          Subjects
-        </Uu5Elements.Text>
-        <Uu5Elements.Grid className={Css.setToCenterWithText()}
-          templateColumns={`repeat(${screensize === "xl" ? 6 : screensize === "l" ? 4 : screensize === "m" ? 3 : screensize === "s" ? 2 : 1
-            }, 1fr)`}
-          rowGap={16}
-          columnGap={32}
-        >
-          {subjectData.map(subject => (
-            <Uu5Elements.Block
-              card="full"
-              colorScheme="blue"
-              significance="highlighted"
-              headerType="title"
-              header={subject.data.name}
-              // footer={}
-              key={subject.data.id}
-              onClick={() => handleSubjectDetail(subject.data.id)}
-            >
-            </Uu5Elements.Block>
-          ))}
-        </Uu5Elements.Grid>
-      </div>
+      return (
+        <div className={Config.Css.css({ padding: 32 })}>
+          <Uu5Elements.Text category="interface" segment="title" type="major">
+            Subjects
+          </Uu5Elements.Text>
+          <Uu5Elements.Grid className={Css.setToCenterWithText()}
+            templateColumns={`repeat(${screensize === "xl" ? 6 : screensize === "l" ? 4 : screensize === "m" ? 3 : screensize === "s" ? 2 : 1
+              }, 1fr)`}
+            rowGap={16}
+            columnGap={32}
+          >
+            {subjectData.map((subject) => (
+              <Uu5Elements.Block
+                card="full"
+                colorScheme="blue"
+                significance="highlighted"
+                headerType="title"
+                header={subject.data.name}
+                // footer={}
+                key={subject.data.id}
+                onClick={() => handleSubjectDetail(subject.data.id)}
+              >
+              </Uu5Elements.Block>
+            ))}
+          </Uu5Elements.Grid>
+        </div>
       );
     }
 
@@ -147,8 +144,6 @@ const StudyProgrammeDetail = createVisualComponent({
               {data.description}
             </Uu5Elements.Text>
           </div>
-
-
         </>
       );
     }
@@ -157,7 +152,7 @@ const StudyProgrammeDetail = createVisualComponent({
         <RouteBar name="routeBar" id="6983038 " />
         <SubjectManCarousel name="SubjectManCarousel" id="6438025" />
         {data != null ? renderData(data) : null}
-        {subjectListResult.data != null ? renderSubjectData(subjectListResult.data) : null}
+        {subjectListResult.data != null ? renderSubjectData(subjectListResult.data) : null }
       </div>
     )
     //@@viewOff:render

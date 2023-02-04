@@ -81,6 +81,10 @@ const Calls = {
     let commandUri = Calls.getCommandUri("subject/get");
     return Calls.call("get", commandUri, dtoIn);
   },
+  listSubjects(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
   listTopic(dtoIn) {
     let commandUri = Calls.getCommandUri("topic/list");
     return Calls.call("get", commandUri, dtoIn);
