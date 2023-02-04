@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import {createVisualComponent, useRef, useRoute, useSession, useState, Utils} from "uu5g05";
-import {createContext, useContext} from 'react';
+import { createContext, useContext } from 'react';
 import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
 import "uu5g04-bricks";
@@ -55,13 +55,10 @@ let StudyProgrammes = createVisualComponent({
     //   data: { authorizedProfileList }
     // } = useContext(SubjectmanInstanceContext);
     const [, setRoute] = useRoute();
-    // const [StudyProgramme, setStudyProgramme] = useState();
-    // const getStudyProgramme = useContext(null);
     const createStudyProgrammeRef = useRef();
     const updateStudyProgrammeRef = useRef();
     const deleteStudyProgrammeRef = useRef();
     const getStudyProgrammeRef = useRef();
-    const detailRef = useRef();
     // const listStudyProgrammeRef = useRef();
     //@viewOff:hooks
 
@@ -106,25 +103,9 @@ let StudyProgrammes = createVisualComponent({
     }
 
     function handleDetailStudyProgramme(studyProgramme) {
-      // const value = useContext(StudyProgrammeContext)
-      // console.log("handleDetailStudyProgramme");
-      // console.log(studyProgramme)
-
-      // useMyContext(studyProgramme)
-      // setRoute("studyProgrammeDetail", {id: studyProgramme.id})
       setRoute("studyProgrammeDetail", { id: studyProgramme.id });
     }
 
-    //TODO: Do we need get handleGetStudyProgramme??
-    // async function handleGetStudyProgramme(studyProgramme) {
-    //   try {
-    //     await updateStudyProgrammeRef.current({ id: studyProgramme.id, ...values });
-    //   } catch {
-    //     showError(`Update of ${studyProgramme.name} failed!`);
-    //   }
-    // }
-
-    //TODO: Test out user authentication
     function isUserAuthorized() {
       return adminList.includes(identity.uuIdentity)
     }
@@ -141,15 +122,17 @@ let StudyProgrammes = createVisualComponent({
 
     function renderStudyProgrammeList(studyProgrammes) {
       return (
-        <div className={Config.Css.css({padding: 16})}>
-          <StudyProgrammeList
-            studyProgram={studyProgrammes}
-            isAuthorized={isUserAuthorized()}
-            onUpdate={handleUpdateStudyProgramme}
-            onCreate={handleCreateStudyProgramme}
-            onDetail={handleDetailStudyProgramme}
-            onDelete={handleDeleteStudyProgramme}
-          />
+        <div className={Config.Css.css({padding: 32})}>
+          <Uu5Elements.Block>
+            <StudyProgrammeList
+              studyProgram={studyProgrammes}
+              isAuthorized={isUserAuthorized()}
+              onUpdate={handleUpdateStudyProgramme}
+              onCreate={handleCreateStudyProgramme}
+              onDetail={handleDetailStudyProgramme}
+              onDelete={handleDeleteStudyProgramme}
+            />
+          </Uu5Elements.Block>
         </div>
       );
     }

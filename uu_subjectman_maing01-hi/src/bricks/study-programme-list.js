@@ -34,6 +34,7 @@ const StudyProgrammeList = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     studyProgram: [],
+    isAuthorized: false,
     onDetail: () => {
     },
     onUpdate: () => {
@@ -48,6 +49,7 @@ const StudyProgrammeList = createVisualComponent({
   render({studyProgram, isAuthorized, onDetail, onUpdate, onDelete, onCreate}) {
     //@@viewOn:private
     const [screensize] = useScreenSize();
+    console.log(studyProgram)
 
     //@@viewOff:private
 
@@ -57,7 +59,6 @@ const StudyProgrammeList = createVisualComponent({
     //@@viewOn:render
     if (studyProgram.length === 0) {
       return <UU5.Common.Error content="No study programme to show"/>;
-
     }
 
     function editBarPanel() {
@@ -93,6 +94,7 @@ const StudyProgrammeList = createVisualComponent({
         </Uu5Elements.Box>
       )
     }
+
     function contentPanel() {
       return (
         <Uu5Elements.Grid className={Css.setToCenterWithText()}
@@ -105,7 +107,7 @@ const StudyProgrammeList = createVisualComponent({
           {studyProgram.map(program => (
             <StudyProgramme
               key={program.data.id}
-              studyProgramme={program.data}
+              studyProgram={program.data}
               onDetail={onDetail}
               onUpdate={onUpdate}
               onDelete={onDelete}
@@ -114,9 +116,10 @@ const StudyProgrammeList = createVisualComponent({
         </Uu5Elements.Grid>
       )
     }
+
     return (
       <Uu5Elements.Block
-        header={isAuthorized ?editBarPanel():<></>}
+        header={isAuthorized ? editBarPanel() : <></>}
         footer={(
           <div className={Config.Css.css({paddingTop: 40})}>
             {contentPanel()}
@@ -124,7 +127,7 @@ const StudyProgrammeList = createVisualComponent({
         )}
       >
       </Uu5Elements.Block>
-  )
+    )
     //@@viewOff:render
   },
 });
