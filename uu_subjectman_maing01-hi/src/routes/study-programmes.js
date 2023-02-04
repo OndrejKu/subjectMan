@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import {createVisualComponent, useRef, useRoute, useSession, useState, Utils} from "uu5g05";
-import {createContext, useContext} from 'react';
+import {createVisualComponent, useRef, useRoute, useState, Utils} from "uu5g05";
+import { createContext, useContext } from 'react';
 import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
 import "uu5g04-bricks";
@@ -111,14 +111,8 @@ let StudyProgrammes = createVisualComponent({
       // console.log(studyProgramme)
 
       // useMyContext(studyProgramme)
-      return setRoute("studyProgrammeDetail", {id: studyProgramme.id})
-      // return (
-      //   // <StudyProgrammeDetail
-      //   load={setRoute("studyProgrammeDetail", {...studyProgramme})}
-      //   {/*>*/}
-      //   {/*</StudyProgrammeDetail>*/}
-      // )
-
+      // setRoute("studyProgrammeDetail", {id: studyProgramme.id})
+      setRoute("studyProgrammeDetail", { id: studyProgramme.id });
     }
 
     //TODO: Do we need get handleGetStudyProgramme??
@@ -145,17 +139,18 @@ let StudyProgrammes = createVisualComponent({
       return <UU5.Bricks.Loading/>;
     }
 
-    function renderStudyProgrammeList(studyProgrammes) {
+    function renderReady(studyProgrammes) {
       return (
-        <div className={Config.Css.css({padding: 16})}>
-          <StudyProgrammeList
-            studyProgram={studyProgrammes}
-            isAuthorized={isUserAuthorized()}
-            onUpdate={handleUpdateStudyProgramme}
-            onCreate={handleCreateStudyProgramme}
-            onDetail={handleDetailStudyProgramme}
-            onDelete={handleDeleteStudyProgramme}
-          />
+        <div className={Config.Css.css({padding: 32})}>
+          <Uu5Elements.Block>
+            <StudyProgrammeList
+              studyProgram={studyProgrammes}
+              onUpdate={handleUpdateStudyProgramme}
+              onCreate={handleCreateStudyProgramme}
+              onDetail={handleDetailStudyProgramme}
+              onDelete={handleDeleteStudyProgramme}
+            />
+          </Uu5Elements.Block>
         </div>
       );
     }
@@ -174,29 +169,24 @@ let StudyProgrammes = createVisualComponent({
         <RouteBar name="routeBar" id="6983038 "/>
         <SubjectManCarousel name="SubjectManCarousel" id="6438025"/>
         <StudyProgrammeProvider>
-          <StudyProgrammeContext.Consumer>
-            {({state, data, errorData, pendingData, handlerMap}) => {
-              createStudyProgrammeRef.current = handlerMap.createStudyProgramme;
-              updateStudyProgrammeRef.current = handlerMap.updateStudyProgramme;
-              getStudyProgrammeRef.current = handlerMap.getStudyProgramme;
-              console.log("data")
-              console.log(data)
-              console.log(state)
-              switch (state) {
-                case "pending":
-                case "pendingNoData":
-                  return renderLoad();
-                case "error":
-                case "errorNoData":
-                  return renderError(errorData);
-                case "itemPending":
-                case "ready":
-                case "readyNoData":
-                default:
-                  return renderStudyProgrammeList(data);
-              }
-            }}
-          </StudyProgrammeContext.Consumer>
+          {({state, data, errorData, pendingData, handlerMap}) => {
+            createStudyProgrammeRef.current = handlerMap.createStudyProgramme;
+            updateStudyProgrammeRef.current = handlerMap.updateStudyProgramme;
+            getStudyProgrammeRef.current = handlerMap.getStudyProgramme;
+            switch (state) {
+              case "pending":
+              case "pendingNoData":
+                return renderLoad();
+              case "error":
+              case "errorNoData":
+                return renderError(errorData);
+              case "itemPending":
+              case "ready":
+              case "readyNoData":
+              default:
+                return renderReady(data);
+            }
+          }}
         </StudyProgrammeProvider>
       </div>
     );
