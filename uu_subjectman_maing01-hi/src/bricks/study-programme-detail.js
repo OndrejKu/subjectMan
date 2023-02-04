@@ -6,7 +6,7 @@ import SubjectManCarousel from "./subject-man-carousel";
 import Css from "./main-css"
 import RouteBar from "../core/route-bar";
 import UU5 from "uu5g04";
-import {studyProgrammeContext} from "./study-programme-context";
+import {StudyProgrammeContext, studyProgrammeContext, useStudyProgramme} from "./study-programme-context";
 // import {StudyProgrammeContext} from "./study-programme-context";
 // import { useStudyProgramme } from "./study-programme-context";
 
@@ -37,25 +37,40 @@ const StudyProgrammeDetail = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    studyProgramme: {
+      name: "",
+      id: "",
+      degreeOfStudy: "",
+      description: ""
+    }
+  },
   //@@viewOff:defaultProps
 
-  render(props) {
-    //@@viewOn:hooks
-    // const value = useContext(useStudyProgramme);
-    // studyProgrammeContext
-    //@@viewOff:hooks
-
+  render() {
     //@@viewOn:private
     const [route] = useRoute()
     // const value = useContext(useStudyProgramme);
-    // const StudyProgramme = route(route.params);
+    // const studyProgrammmeID = route(route.params.id);
     //TODO: Remove this for better function call to get data from Calls.getStudyProgramme({"id": route.params.id})
-    const studyProgramme = route.params
-    console.log("---dataContext---")
+    // const studyProgramme = route.params
+    console.log("---study-programme-detail.js---")
+    // console.log("useContext(useStudyProgramme)")
+    console.log(useContext(StudyProgrammeContext))
     // console.log(value)
     const {addAlert, updateAlert} = Uu5Elements.useAlertBus();
     //@@viewOff:private
+
+    //@@viewOn:hooks
+    // const value = useContext(useStudyProgramme);
+    // studyProgrammeContext
+
+
+    function renderContextData( id ) {
+      const dtoOut = useContext(StudyProgrammeContext);
+      console.log(dtoOut);
+    }
+    //@@viewOff:hooks
 
     //@@viewOn:interface
     //@@viewOff:interface

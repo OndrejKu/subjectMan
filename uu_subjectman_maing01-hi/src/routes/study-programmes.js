@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import {createVisualComponent, useRef, useRoute, useState, Utils} from "uu5g05";
-import { createContext, useContext } from 'react';
+import {createVisualComponent, useRef, useRoute, useSession, useState, Utils} from "uu5g05";
+import {createContext, useContext} from 'react';
 import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
 import "uu5g04-bricks";
@@ -18,6 +18,7 @@ import StudyProgrammeContext from "../bricks/study-programme-context";
 
 //@@viewOn:constants
 const [MyContext, useMyContext] = Utils.Context.create({})
+const adminList = ['6-442-1']
 
 
 //@@viewOff:constants
@@ -65,7 +66,7 @@ let StudyProgrammes = createVisualComponent({
     //@viewOff:hooks
 
     //@@viewOn:private
-    // const { identity } = useSession();
+    const {identity} = useSession();
 
     function showError(content) {
       UU5.Environment.getPage()
@@ -77,27 +78,31 @@ let StudyProgrammes = createVisualComponent({
     }
 
     async function handleCreateStudyProgramme(studyProgramme) {
-      try {
-        await createStudyProgrammeRef.current({id: studyProgramme.id});
-      } catch {
-        showError(`Creation of ${studyProgramme.name} failed!`);
-      }
+      alert("User pressed create")
+      // try {
+      //   await createStudyProgrammeRef.current({id: studyProgramme.id});
+      // } catch {
+      //   showError(`Creation of ${studyProgramme.name} failed!`);
+      // }
     }
 
     async function handleUpdateStudyProgramme(studyProgramme, values) {
-      try {
-        await updateStudyProgrammeRef.current({id: studyProgramme.id, ...values});
-      } catch {
-        showError(`Update of ${studyProgramme.name} failed!`);
-      }
+      alert("User pressed update")
+      // try {
+      //   await updateStudyProgrammeRef.current({id: studyProgramme.id, ...values});
+      // } catch {
+      //   showError(`Update of ${studyProgramme.name} failed!`);
+      // }
     }
 
     async function handleDeleteStudyProgramme(studyProgramme) {
-      try {
-        await deleteStudyProgrammeRef.current({id: studyProgramme.id});
-      } catch {
-        showError(`Delete of ${studyProgramme.name} failed!`);
-      }
+      console.log(isUserAuthorized())
+      alert("User pressed delete")
+      // try {
+      //   await deleteStudyProgrammeRef.current({id: studyProgramme.id});
+      // } catch {
+      //   showError(`Delete of ${studyProgramme.name} failed!`);
+      // }
     }
 
     function handleDetailStudyProgramme(studyProgramme) {
@@ -106,8 +111,14 @@ let StudyProgrammes = createVisualComponent({
       // console.log(studyProgramme)
 
       // useMyContext(studyProgramme)
-      // setRoute("studyProgrammeDetail", {id: studyProgramme.id})
-      setRoute("studyProgrammeDetail", {...studyProgramme})
+      return setRoute("studyProgrammeDetail", {id: studyProgramme.id})
+      // return (
+      //   // <StudyProgrammeDetail
+      //   load={setRoute("studyProgrammeDetail", {...studyProgramme})}
+      //   {/*>*/}
+      //   {/*</StudyProgrammeDetail>*/}
+      // )
+
     }
 
     //TODO: Do we need get handleGetStudyProgramme??
@@ -120,11 +131,10 @@ let StudyProgrammes = createVisualComponent({
     // }
 
     //TODO: Test out user authentication
-    // function isCreateAuthorized() {
-    //   return authorizedProfileList.some(
-    //     profile => profile === Config.Profiles.AUTHORITIES || profile === Config.Profiles.EXECUTIVES
-    //   );
-    // }
+    function isUserAuthorized() {
+      return adminList.includes(identity.uuIdentity)
+    }
+
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -135,18 +145,17 @@ let StudyProgrammes = createVisualComponent({
       return <UU5.Bricks.Loading/>;
     }
 
-    function renderReady(studyProgrammes) {
+    function renderStudyProgrammeList(studyProgrammes) {
       return (
-        <div className={Config.Css.css({padding: 32})}>
-          <Uu5Elements.Block>
-            <StudyProgrammeList
-              studyProgram={studyProgrammes}
-              onUpdate={handleUpdateStudyProgramme}
-              onCreate={handleCreateStudyProgramme}
-              onDetail={handleDetailStudyProgramme}
-              onDelete={handleDeleteStudyProgramme}
-            />
-          </Uu5Elements.Block>
+        <div className={Config.Css.css({padding: 16})}>
+          <StudyProgrammeList
+            studyProgram={studyProgrammes}
+            isAuthorized={isUserAuthorized()}
+            onUpdate={handleUpdateStudyProgramme}
+            onCreate={handleCreateStudyProgramme}
+            onDetail={handleDetailStudyProgramme}
+            onDelete={handleDeleteStudyProgramme}
+          />
         </div>
       );
     }
@@ -165,24 +174,29 @@ let StudyProgrammes = createVisualComponent({
         <RouteBar name="routeBar" id="6983038 "/>
         <SubjectManCarousel name="SubjectManCarousel" id="6438025"/>
         <StudyProgrammeProvider>
-          {({state, data, errorData, pendingData, handlerMap}) => {
-            createStudyProgrammeRef.current = handlerMap.createStudyProgramme;
-            updateStudyProgrammeRef.current = handlerMap.updateStudyProgramme;
-            getStudyProgrammeRef.current = handlerMap.getStudyProgramme;
-            switch (state) {
-              case "pending":
-              case "pendingNoData":
-                return renderLoad();
-              case "error":
-              case "errorNoData":
-                return renderError(errorData);
-              case "itemPending":
-              case "ready":
-              case "readyNoData":
-              default:
-                return renderReady(data);
-            }
-          }}
+          <StudyProgrammeContext.Consumer>
+            {({state, data, errorData, pendingData, handlerMap}) => {
+              createStudyProgrammeRef.current = handlerMap.createStudyProgramme;
+              updateStudyProgrammeRef.current = handlerMap.updateStudyProgramme;
+              getStudyProgrammeRef.current = handlerMap.getStudyProgramme;
+              console.log("data")
+              console.log(data)
+              console.log(state)
+              switch (state) {
+                case "pending":
+                case "pendingNoData":
+                  return renderLoad();
+                case "error":
+                case "errorNoData":
+                  return renderError(errorData);
+                case "itemPending":
+                case "ready":
+                case "readyNoData":
+                default:
+                  return renderStudyProgrammeList(data);
+              }
+            }}
+          </StudyProgrammeContext.Consumer>
         </StudyProgrammeProvider>
       </div>
     );
