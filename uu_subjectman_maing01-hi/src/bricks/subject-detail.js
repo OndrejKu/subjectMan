@@ -8,6 +8,10 @@ import SubjectManCarousel from "./subject-man-carousel";
 import Css from "./main-css"
 import RouteBar from "../core/route-bar";
 import UU5 from "uu5g04";
+import Topics from "../routes/topics";
+import Topic from "./topic";
+import TopicDetail from "./topic-detail";
+import TopicList from "./topic-list";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -49,6 +53,7 @@ const SubjectDetail = createVisualComponent({
       const dtoOut = await Calls.getSubject({ id: route.params.id });
       return dtoOut;
     }
+
     function renderData(data) {
       console.log(data)
       return (

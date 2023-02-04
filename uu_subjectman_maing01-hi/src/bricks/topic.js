@@ -70,7 +70,7 @@ const Topic = createVisualComponent({
     if (!topic) return null;
 
     return (
-      <Uu5Elements.Block className={Css.backgroundImage()}
+      <Uu5Elements.Block className={Css.topicBackgroundImage()}
         card="full"
         colorScheme="dark-blue"
         significance="highlighted"
