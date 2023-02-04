@@ -8,6 +8,8 @@ import TopicProvider from "../bricks/topic-provider";
 import TopicDetail from "../bricks/study-programme-detail";
 import TopicList from "../bricks/topic-list";
 import StudyProgrammeList from "../bricks/study-programme-list";
+import RouteBar from "../core/route-bar";
+import SubjectManCarousel from "../bricks/subject-man-carousel";
 
 //@@viewOff:imports
 
@@ -99,8 +101,8 @@ let Topics = createVisualComponent({
 
     return (
       <div>
-        {/*<RouteBar name="routeBar" id="6983038 "/>*/}
-        {/*<SubjectManCarousel name="SubjectManCarousel" id="6438025"/>*/}
+        <RouteBar name="routeBar" id="6983038 "/>
+        <SubjectManCarousel name="SubjectManCarousel" id="6438025"/>
         <TopicProvider>
             {({state, data, errorData, pendingData, handlerMap}) => {
               // createTopicRef.current = handlerMap.createTopic;
