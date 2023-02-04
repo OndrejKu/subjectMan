@@ -2,10 +2,10 @@
 import { createVisualComponent } from "uu5g04-hooks";
 import "uu5g04-bricks";
 import { withRoute } from "uu_plus4u5g02-app";
-
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar.js";
 import UU5 from "uu5g04";
+import DigitalContentView from "../bricks/digital-content-view";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -45,14 +45,11 @@ let DigitalContents = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    function renderLoad() {
-      return <UU5.Bricks.Loading/>;
-    }
 
     return (
       <div>
         <RouteBar />
-        <h1>Hello</h1>
+        <DigitalContentView />
       </div>
     );
     //@@viewOff:render
