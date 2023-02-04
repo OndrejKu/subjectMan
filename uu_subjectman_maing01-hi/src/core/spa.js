@@ -6,6 +6,7 @@ import Plus4U5App from "uu_plus4u5g02-app";
 import Config from "./config/config.js";
 import Home from "../routes/home.js";
 import StudyProgrammeDetail from "../bricks/study-programme-detail";
+import SubjectDetail from "../bricks/subject-detail";
 import StudyProgrammes from "../routes/study-programmes";
 import DigitalContents from "../routes/digital-contents.js";
 import Topics from "../routes/topics";
@@ -19,6 +20,7 @@ const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.
 
 const ROUTE_MAP = {
   "": { redirect: "home" },
+  subjectDetail: (props) => <SubjectDetail {...props} />,
   studyProgrammeDetail: (props) => <StudyProgrammeDetail {...props} />,
   studyProgrammes: (props) => <StudyProgrammes {...props} />,
   digitalContents: (props) => <DigitalContents {...props} />,

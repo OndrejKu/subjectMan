@@ -66,8 +66,6 @@ const Calls = {
 
   getStudyProgramme(dtoIn) {
     let commandUri = Calls.getCommandUri("studyProgramme/get");
-    console.log("---getStudyProgramme---")
-    console.log(dtoIn)
     return Calls.call("get", commandUri, dtoIn);
   },
 
@@ -79,17 +77,19 @@ const Calls = {
     let commandUri = Calls.getCommandUri("digitalContent/list");
     return Calls.call("get", commandUri, dtoIn);
   },
-  listTopic(dtoIn) {
-    console.log("---listTopic---")
-    console.log(dtoIn)
-    let commandUri = Calls.getCommandUri("topic/list");
-    return Calls.call("get", commandUri, dtoIn);
-  },
   getTopic(dtoIn) {
     let commandUri = Calls.getCommandUri("topic/get");
     return Calls.call("get", commandUri, dtoIn);
   },
-
+  getSubject(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/get");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  listTopic(dtoIn) {
+    console.log("---listTopic---")
+    console.log(dtoIn)
+    let commandUri = Calls.getCommandUri("topic/list");
+  }
 };
 
 export default Calls;

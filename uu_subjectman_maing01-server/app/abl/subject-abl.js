@@ -26,7 +26,7 @@ class SubjectAbl {
     );
 
     let subject = await this.dao.getById(awid, dtoIn.id);
-    if (!subject) throw new Errors.Update.TopicDoesNotExist({ uuAppErrorMap }, dtoIn);
+    if (!subject) throw new Errors.Update.SubjectNotFound({ uuAppErrorMap }, dtoIn);
 
     if (dtoIn.studyProgrammeId) {
       let check = await this.daoStudyProgramme.get(awid, dtoIn.studyProgrammeId);

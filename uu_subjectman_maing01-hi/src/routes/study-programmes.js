@@ -120,7 +120,7 @@ let StudyProgrammes = createVisualComponent({
       return <UU5.Bricks.Loading/>;
     }
 
-    function renderReady(studyProgrammes) {
+    function renderStudyProgrammeList(studyProgrammes) {
       return (
         <div className={Config.Css.css({padding: 32})}>
           <Uu5Elements.Block>
@@ -151,24 +151,29 @@ let StudyProgrammes = createVisualComponent({
         <RouteBar name="routeBar" id="6983038 "/>
         <SubjectManCarousel name="SubjectManCarousel" id="6438025"/>
         <StudyProgrammeProvider>
-          {({state, data, errorData, pendingData, handlerMap}) => {
-            createStudyProgrammeRef.current = handlerMap.createStudyProgramme;
-            updateStudyProgrammeRef.current = handlerMap.updateStudyProgramme;
-            getStudyProgrammeRef.current = handlerMap.getStudyProgramme;
-            switch (state) {
-              case "pending":
-              case "pendingNoData":
-                return renderLoad();
-              case "error":
-              case "errorNoData":
-                return renderError(errorData);
-              case "itemPending":
-              case "ready":
-              case "readyNoData":
-              default:
-                return renderReady(data);
-            }
-          }}
+          <StudyProgrammeContext.Consumer>
+            {({state, data, errorData, pendingData, handlerMap}) => {
+              createStudyProgrammeRef.current = handlerMap.createStudyProgramme;
+              updateStudyProgrammeRef.current = handlerMap.updateStudyProgramme;
+              getStudyProgrammeRef.current = handlerMap.getStudyProgramme;
+              console.log("data")
+              console.log(data)
+              console.log(state)
+              switch (state) {
+                case "pending":
+                case "pendingNoData":
+                  return renderLoad();
+                case "error":
+                case "errorNoData":
+                  return renderError(errorData);
+                case "itemPending":
+                case "ready":
+                case "readyNoData":
+                default:
+                  return renderStudyProgrammeList(data);
+              }
+            }}
+          </StudyProgrammeContext.Consumer>
         </StudyProgrammeProvider>
       </div>
     );

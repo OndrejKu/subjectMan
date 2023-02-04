@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import {createVisualComponent, useContext, useRoute} from "uu5g05";
+import { createVisualComponent, useContext, useRoute, useScreenSize } from "uu5g05";
 import { useDataObject, useDataList } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config.js";
@@ -8,7 +8,7 @@ import SubjectManCarousel from "./subject-man-carousel";
 import Css from "./main-css"
 import RouteBar from "../core/route-bar";
 import UU5 from "uu5g04";
-import {studyProgrammeContext} from "./study-programme-context";
+import { StudyProgrammeContext, studyProgrammeContext, useStudyProgramme } from "./study-programme-context";
 // import {StudyProgrammeContext} from "./study-programme-context";
 // import { useStudyProgramme } from "./study-programme-context";
 
@@ -39,7 +39,14 @@ const StudyProgrammeDetail = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    studyProgramme: {
+      name: "",
+      id: "",
+      degreeOfStudy: "",
+      description: ""
+    }
+  },
   //@@viewOff:defaultProps
 
   render(props) {
@@ -47,7 +54,8 @@ const StudyProgrammeDetail = createVisualComponent({
     //@@viewOff:hooks
 
     //@@viewOn:private
-    const [route] = useRoute();
+    const [route, setRoute] = useRoute();
+    const [screensize] = useScreenSize();
     const studyProgrammeId = route.params.id;
     const studyProgramme = useDataObject({
       handlerMap: {
@@ -63,8 +71,15 @@ const StudyProgrammeDetail = createVisualComponent({
     });
 
     // console.log(value)
-    const {addAlert, updateAlert} = Uu5Elements.useAlertBus();
+    const { addAlert, updateAlert } = Uu5Elements.useAlertBus();
     //@@viewOff:private
+    console.log("---study-programme-detail.js---")
+    console.log("context")
+    console.log(useContext(StudyProgrammeContext))
+    //@@viewOn:hooks
+    // const value = useContext(useStudyProgramme);
+    // studyProgrammeContext
+    //@@viewOff:hooks
 
     //@@viewOn:interface
     //@@viewOff:interface
@@ -72,6 +87,10 @@ const StudyProgrammeDetail = createVisualComponent({
     //@@viewOn:render
     function onSubmit() {
       return alert("clicked button")
+    }
+
+    function handleSubjectDetail(id) {
+      setRoute("subjectDetail", { id: id })
     }
 
     async function handleLoad() {
@@ -82,25 +101,44 @@ const StudyProgrammeDetail = createVisualComponent({
 
     function renderSubjectData(subjectData) {
       console.log(subjectData);
-      return (
-        <>
-          {subjectData.map((subject) => {
-            return (<h2 key={subject.data.id}>{subject.data.name}</h2>)
-          })}
-        </>
+      return (<div className={Config.Css.css({ padding: 32 })}>
+        <Uu5Elements.Text category="interface" segment="title" type="major">
+          Subjects
+        </Uu5Elements.Text>
+        <Uu5Elements.Grid className={Css.setToCenterWithText()}
+          templateColumns={`repeat(${screensize === "xl" ? 6 : screensize === "l" ? 4 : screensize === "m" ? 3 : screensize === "s" ? 2 : 1
+            }, 1fr)`}
+          rowGap={16}
+          columnGap={32}
+        >
+          {subjectData.map(subject => (
+            <Uu5Elements.Block
+              card="full"
+              colorScheme="blue"
+              significance="highlighted"
+              headerType="title"
+              header={subject.data.name}
+              // footer={}
+              key={subject.data.id}
+              onClick={() => handleSubjectDetail(subject.data.id)}
+            >
+            </Uu5Elements.Block>
+          ))}
+        </Uu5Elements.Grid>
+      </div>
       );
     }
 
     function renderData(data) {
       return (
         <>
-          <div className={Config.Css.css({padding: 32})}>
+          <div className={Config.Css.css({ padding: 32 })}>
             <Uu5Elements.Block
               header={
                 <Uu5Elements.Grid templateColumns={"80% 5%"}>
                   <h1>{data.name}<span className={Css.degreeBadge()}>{data.degreeOfStudy}</span></h1>
                   <Uu5Elements.Button style={'float: right'} size="xl" colorScheme={'green'}
-                                      onClick={onSubmit}>Apply</Uu5Elements.Button>
+                    onClick={onSubmit}>Apply</Uu5Elements.Button>
                 </Uu5Elements.Grid>
               }
             >
@@ -108,12 +146,9 @@ const StudyProgrammeDetail = createVisualComponent({
             <Uu5Elements.Text category="story" segment="body" type="major">
               {data.description}
             </Uu5Elements.Text>
-            {/*</Uu5Elements.Grid>*/}
           </div>
-          <img className={Config.Css.css({padding: 32})}
-                src="https://img.freepik.com/free-vector/awesome-mobile-software-application-development-concept-mobile-phone-with-big-gear_39422-984.jpg?w=900&t=st=1675210344~exp=1675210944~hmac=9d6e234877b8bca7d6c9535b7c83acdc3eb4f922bb3403a5720e8a8998922845"
-            // style={{width: "350px"}}
-          />
+
+
         </>
       );
     }
@@ -130,6 +165,6 @@ const StudyProgrammeDetail = createVisualComponent({
 });
 
 //@@viewOn:exports
-export {StudyProgrammeDetail};
+export { StudyProgrammeDetail };
 export default StudyProgrammeDetail;
 //@@viewOff:exports
