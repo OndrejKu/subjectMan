@@ -22,8 +22,13 @@ class SubjectMongo extends UuObjectDao {
     };
     return await super.findOne(filter);
   }
-  async list(awid, sort = {}, pageInfo = {}) {
-    return await super.find({ awid }, pageInfo, sort);
+  async list(awid, sort = {}, pageInfo = {}, studyProgrammeId = 0) {
+    let list = await super.find({ awid }, pageInfo, sort)
+    //studyy programe filter
+    if (studyProgrammeId != 0) {
+      list = await list.itemList.filter((item) => item.studyProgrammeId == studyProgrammeId);
+    }
+    return list;
   }
 
   async update(uuObject) {
