@@ -25,7 +25,8 @@ const StudyProgrammeProvider = createVisualComponent({
   //@@viewOn:defaultProps
   //@@viewOff:defaultProps
 
-  render({children}) {
+  // render({children}) {
+  render(props) {
     //@@viewOn:hooks
     const [route,] = useRoute();
 
@@ -45,8 +46,7 @@ const StudyProgrammeProvider = createVisualComponent({
     }, [route.params?.id]);
 
     let { state, data, newData, pendingData, errorData, handlerMap } = listDataValues;
-    console.log("----getStudyProgramme----");
-    console.log(handlerMap);
+
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -57,25 +57,28 @@ const StudyProgrammeProvider = createVisualComponent({
 
     //@@viewOn:render
 
-    // const providerValue = useMemo(() => {
-    //   return listDataValues;
-    // }, [listDataValues]);
+    const providerValue = useMemo(() => {
+      return listDataValues;
+    }, [listDataValues]);
 
-    return children({
-      state,
-      data,
-      newData,
-      pendingData,
-      errorData,
-      handlerMap
-    });
+    // return children({
+    //   state,
+    //   data,
+    //   newData,
+    //   pendingData,
+    //   errorData,
+    //   handlerMap
+    // });
+    console.log("----study-programme-provider.js----");
+    console.log("providerValue");
+    console.log(providerValue);
 
-    // return (
-    //   <StudyProgrammeContext.Provider value={providerValue}>
-    //     {typeof props.children === "function" ? props.children(providerValue) : props.children}
-    //   </StudyProgrammeContext.Provider>
-    // );
-    //@@viewOff:render
+    return (
+      <StudyProgrammeContext.Provider value={providerValue}>
+        {typeof props.children === "function" ? props.children(providerValue) : props.children}
+      </StudyProgrammeContext.Provider>
+    );
+    // @@viewOff:render
   },
 });
 
