@@ -8,9 +8,6 @@ const studyProgrammeCreateDToInType = shape({
 
 const studyProgrammeUpdateDToInType = shape({
   id: id().isRequired(),
-  name: uu5String(255).isRequired(),
-  description: uu5String(4000),
-  degreeOfStudy: oneOf(["ING", "BC", "MGR", "PHDR", "RNDR"]).isRequired(),
 });
 
 const studyProgrammeListDtoInType = shape({

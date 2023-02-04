@@ -3,9 +3,10 @@ import { createVisualComponent, Utils } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Plus4U5 from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
-
 import Config from "./config/config.js";
 import Home from "../routes/home.js";
+import StudyProgrammeDetail from "../bricks/study-programme-detail";
+import StudyProgrammes from "../routes/study-programmes";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -15,6 +16,8 @@ const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.
 
 const ROUTE_MAP = {
   "": { redirect: "home" },
+  studyProgrammeDetail: (props) => <StudyProgrammeDetail {...props} />,
+  studyProgrammes: (props) => <StudyProgrammes {...props} />,
   home: (props) => <Home {...props} />,
   about: (props) => <About {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,

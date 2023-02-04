@@ -26,6 +26,11 @@ const Calls = {
     return Calls.call("get", commandUri);
   },
 
+  loadSubjectmanInstance(dtoIn) {
+    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   initWorkspace(dtoInData) {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/init");
     return Calls.call("post", commandUri, dtoInData);
@@ -42,8 +47,35 @@ const Calls = {
   },
 
   getCommandUri(useCase, baseUri = CALLS_BASE_URI) {
+    console.log(useCase)
+    console.log(baseUri)
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
   },
+
+  listStudyProgramme(dtoIn) {
+    let commandUri = Calls.getCommandUri("studyProgramme/list");
+    // console.log("listStudyProgramme")
+    // console.log(dtoIn)
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  createStudyProgramme(dtoIn) {
+    let commandUri = Calls.getCommandUri("studyProgramme/create");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  getStudyProgramme(dtoIn) {
+    let commandUri = Calls.getCommandUri("studyProgramme/get");
+    console.log("---getStudyProgramme---")
+    console.log(dtoIn)
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  updateStudyProgramme(dtoIn) {
+    let commandUri = Calls.getCommandUri("studyProgramme/update");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
 };
 
 export default Calls;

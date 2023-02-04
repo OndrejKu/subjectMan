@@ -12,33 +12,38 @@ const About = {
     },
     authorities: [
       {
-        name: "Name Surname",
+        name: "Tvůrci aplikace",
         uri: "https://www.unicorn.com/",
       },
     ],
   },
   leadingAuthors: [
     {
-      name: "Some Name",
-      uuIdentity: "4-4-1",
-      role: "Chief Business Architect & Stakeholder",
+      name: "Jiří Teplický",
+      uuIdentity: "3627-8321-1",
+      role: "Backend developer",
     },
     {
-      name: "Other Name",
-      uuIdentity: "4-4-1",
-      role: "Head of Development",
+      name: "Ondřej Kubala",
+      uuIdentity: "411-6643-1",
+      role: "Backend developer",
+    },
+    {
+      name: "Pavel Hrdý",
+      uuIdentity: "7220-5416-1",
+      role: "Backend developer",
     },
   ],
   otherAuthors: [
     {
-      name: "Your Name",
-      uuIdentity: "4-4-1",
-      role: "Developer",
+      name: "Tomáš Vyhňák",
+      uuIdentity: "6-442-1",
+      role: "Frontend developer",
     },
     {
-      name: "More Names",
-      uuIdentity: "4-4-1",
-      role: "Developer",
+      name: "Ondřej Martínek",
+      uuIdentity: "4228-4339-1",
+      role: "Frontend developer",
     },
   ],
   usedTechnologies: {
