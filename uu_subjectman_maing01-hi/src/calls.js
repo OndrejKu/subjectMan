@@ -60,6 +60,8 @@ const Calls = {
   },
 
   createStudyProgramme(dtoIn) {
+    console.log("---calls.js----")
+    console.log(dtoIn)
     let commandUri = Calls.getCommandUri("studyProgramme/create");
     return Calls.call("post", commandUri, dtoIn);
   },
@@ -70,6 +72,8 @@ const Calls = {
   },
 
   updateStudyProgramme(dtoIn) {
+    console.log("---calls.js----")
+    console.log(dtoIn)
     let commandUri = Calls.getCommandUri("studyProgramme/update");
     return Calls.call("post", commandUri, dtoIn);
   },
@@ -85,6 +89,11 @@ const Calls = {
     let commandUri = Calls.getCommandUri("subject/get");
     return Calls.call("get", commandUri, dtoIn);
   },
+  listTopic(dtoIn) {
+    console.log("---listTopic---")
+    console.log(dtoIn)
+    let commandUri = Calls.getCommandUri("topic/list");
+  }
 };
 
 export default Calls;
