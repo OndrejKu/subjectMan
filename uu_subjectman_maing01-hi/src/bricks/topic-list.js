@@ -25,28 +25,28 @@ const TopicList = createVisualComponent({
   propTypes: {
     topics: UU5.PropTypes.array,
     isAuthorized: UU5.PropTypes.boolean,
-    // onDetail: UU5.PropTypes.func,
-    // onUpdate: UU5.PropTypes.func,
-    // onDelete: UU5.PropTypes.func
+    onDetail: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
+    onDelete: UU5.PropTypes.func
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     topics: [],
-    isAuthorized: true
-    // onDetail: () => {
-    // },
-    // onUpdate: () => {
-    // },
-    // onDelete: () => {
-    // },
-    // onCreate: () => {
-    // }
+    isAuthorized: false,
+    onDetail: () => {
+    },
+    onUpdate: () => {
+    },
+    onDelete: () => {
+    },
+    onCreate: () => {
+    }
   },
   //@@viewOff:defaultProps
 
-  render({topics, isAuthorized}) {
+  render({topics, isAuthorized, onDetail, onUpdate, onDelete, onCreate}) {
     //@@viewOn:private
     const [screensize] = useScreenSize();
 
@@ -57,7 +57,7 @@ const TopicList = createVisualComponent({
 
     //@@viewOn:render
     if (topics.length === 0) {
-      return <UU5.Common.Error content="No study programme to show"/>;
+      return <UU5.Common.Error content="No topics to show!"/>;
 
     }
 
@@ -107,9 +107,9 @@ const TopicList = createVisualComponent({
             <Topic
               key={program.data.id}
               topic={program.data}
-              // onDetail={onDetail}
-              // onUpdate={onUpdate}
-              // onDelete={onDelete}
+              onDetail={onDetail}
+              onUpdate={onUpdate}
+              onDelete={onDelete}
             />
           ))}
         </Uu5Elements.Grid>

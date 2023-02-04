@@ -1,8 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import {createVisualComponent, Utils, Content, useContext} from "uu5g05";
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
 import Css from "./main-css";
+import DigitalContentContext from "./context/digital-content-context";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -37,7 +38,9 @@ const DigitalContent = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-
+    console.log("---digital-content.js---")
+    console.log("context")
+    console.log(useContext(DigitalContentContext))
     return (
       <Uu5Elements.Block
         card="full"

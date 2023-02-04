@@ -41,7 +41,7 @@ const uu5ElementsBox = () => Config.Css.css`
 const test = () => Config.Css.css`
   position:absolute;
   left:0;
-  top:0;
+  bottom:0;
   right:0;
   `;
 
@@ -66,7 +66,7 @@ export default {
   setToCenterWithText,
   uu5ElementsBox,
   backgroundImage,
-  centerText,
+  test,
   adminPanelIcons,
-  test
+  centerText,
 };

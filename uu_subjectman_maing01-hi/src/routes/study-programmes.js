@@ -14,11 +14,10 @@ import StudyProgrammeDetail from "../bricks/study-programme-detail";
 import Css from "../bricks/main-css";
 import routeBar from "../core/route-bar";
 import StudyProgrammeContext from "../bricks/study-programme-context";
+import {adminList} from "../config/authorities"
 //@@viewOff:imports
 
 //@@viewOn:constants
-const [MyContext, useMyContext] = Utils.Context.create({})
-const adminList = ['6-442-1']
 
 
 //@@viewOff:constants
