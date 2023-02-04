@@ -2,7 +2,6 @@
 import {createVisualComponent, useDataList, useMemo, useRoute, useUpdateEffect} from "uu5g05";
 import Config from "./config/config.js";
 import Calls from "../calls";
-// import TopicContext from "./study-programme-context";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -69,15 +68,6 @@ const TopicProvider = createVisualComponent({
       errorData,
       handlerMap
     });
-    // console.log("----study-programme-provider.js----");
-    // console.log("providerValue");
-    // console.log(providerValue);
-
-    // return (
-    //   <StudyProgrammeContext.Provider value={providerValue}>
-    //     {typeof props.children === "function" ? props.children(providerValue) : props.children}
-    //   </StudyProgrammeContext.Provider>
-    // );
     // @@viewOff:render
   },
 });
