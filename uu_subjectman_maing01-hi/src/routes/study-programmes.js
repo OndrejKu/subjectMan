@@ -107,7 +107,7 @@ let StudyProgrammes = createVisualComponent({
 
       // useMyContext(studyProgramme)
       // setRoute("studyProgrammeDetail", {id: studyProgramme.id})
-      setRoute("studyProgrammeDetail", {...studyProgramme})
+      setRoute("studyProgrammeDetail", { id: studyProgramme.id });
     }
 
     //TODO: Do we need get handleGetStudyProgramme??

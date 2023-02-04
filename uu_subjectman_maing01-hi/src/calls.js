@@ -66,8 +66,6 @@ const Calls = {
 
   getStudyProgramme(dtoIn) {
     let commandUri = Calls.getCommandUri("studyProgramme/get");
-    console.log("---getStudyProgramme---")
-    console.log(dtoIn)
     return Calls.call("get", commandUri, dtoIn);
   },
 
@@ -77,6 +75,10 @@ const Calls = {
   },
   listDigitalContent(dtoIn) {
     let commandUri = Calls.getCommandUri("digitalContent/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  listSubjects(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/list");
     return Calls.call("get", commandUri, dtoIn);
   },
 };
