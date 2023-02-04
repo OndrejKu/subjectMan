@@ -72,16 +72,12 @@ const StudyProgrammeDetail = createVisualComponent({
     // console.log(value)
     const {addAlert, updateAlert} = Uu5Elements.useAlertBus();
     //@@viewOff:private
-
+    console.log("---study-programme-detail.js---")
+    console.log("context")
+    console.log(useContext(StudyProgrammeContext))
     //@@viewOn:hooks
     // const value = useContext(useStudyProgramme);
     // studyProgrammeContext
-
-
-    function renderContextData( id ) {
-      const dtoOut = useContext(StudyProgrammeContext);
-      console.log(dtoOut);
-    }
     //@@viewOff:hooks
 
     //@@viewOn:interface
