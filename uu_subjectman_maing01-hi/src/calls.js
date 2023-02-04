@@ -79,7 +79,10 @@ const Calls = {
     let commandUri = Calls.getCommandUri("studyProgramme/update");
     return Calls.call("post", commandUri, dtoIn);
   },
-
+  listDigitalContent(dtoIn) {
+    let commandUri = Calls.getCommandUri("digitalContent/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
 };
 
 export default Calls;

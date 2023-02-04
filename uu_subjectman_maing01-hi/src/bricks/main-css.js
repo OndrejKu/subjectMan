@@ -7,6 +7,12 @@ const setToCenterWithText = () => Config.Css.css`
   height: 200px;
   text-align: center;
 `;
+const centerText = () => Config.Css.css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
 const degreeBadge = () => Config.Css.css`
   background-color: #2596be;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
@@ -35,7 +41,7 @@ const uu5ElementsBox = () => Config.Css.css`
 const test = () => Config.Css.css`
   position:absolute;
   left:0;
-  top:0;
+  bottom:0;
   right:0;
   `;
 
@@ -46,13 +52,6 @@ const backgroundImage = () => Config.Css.css`
   height: 250px;
   `;
 
-const adminPanelIcons = () => Config.Css.css`
-  margin-left: 16px;
-  margin-right: 32px;
-  font-size: 30px;
-  margin-right: 16px;
-  float: right;
-`;
 
 export default {
   degreeBadge,
@@ -60,6 +59,6 @@ export default {
   setToCenterWithText,
   uu5ElementsBox,
   backgroundImage,
-  adminPanelIcons,
-  test
+  test,
+  centerText,
 };

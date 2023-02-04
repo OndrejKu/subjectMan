@@ -3,7 +3,7 @@ import {createVisualComponent, Utils, Content, useRef, useContext, useRoute} fro
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
 import UU5 from "uu5g04";
-import Css from "./main-css"
+import Css from "./main-css";
 import StudyProgrammeContext from "./study-programme-context";
 //@@viewOff:imports
 

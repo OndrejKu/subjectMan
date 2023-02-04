@@ -7,6 +7,7 @@ import Config from "./config/config.js";
 import Home from "../routes/home.js";
 import StudyProgrammeDetail from "../bricks/study-programme-detail";
 import StudyProgrammes from "../routes/study-programmes";
+import DigitalContents from "../routes/digital-contents.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -18,6 +19,7 @@ const ROUTE_MAP = {
   "": { redirect: "home" },
   studyProgrammeDetail: (props) => <StudyProgrammeDetail {...props} />,
   studyProgrammes: (props) => <StudyProgrammes {...props} />,
+  digitalContents: (props) => <DigitalContents {...props} />,
   home: (props) => <Home {...props} />,
   about: (props) => <About {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
