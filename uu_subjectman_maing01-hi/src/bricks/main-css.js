@@ -7,6 +7,12 @@ const setToCenterWithText = () => Config.Css.css`
   height: 200px;
   text-align: center;
 `;
+const centerText = () => Config.Css.css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
 const degreeBadge = () => Config.Css.css`
   background-color: #2596be;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
@@ -53,5 +59,6 @@ export default {
   setToCenterWithText,
   uu5ElementsBox,
   backgroundImage,
-  test
+  test,
+  centerText,
 };

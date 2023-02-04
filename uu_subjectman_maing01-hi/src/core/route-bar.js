@@ -105,6 +105,13 @@ const RouteBar = createVisualComponent({
             id="3002449"
           />
           <Uu5Elements.Icon
+            icon="fa-graduation-cap"
+            className={icons()}
+            onClick={() => setRoute("digitalContents")}
+            tooltip=""
+            name=""
+          />
+          <Uu5Elements.Icon
             icon="mdi-information"
             className={lastIcons()}
             onClick={() => setRoute("about")}
