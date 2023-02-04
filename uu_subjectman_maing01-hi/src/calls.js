@@ -85,6 +85,11 @@ const Calls = {
     let commandUri = Calls.getCommandUri("topic/list");
     return Calls.call("get", commandUri, dtoIn);
   },
+  getTopic(dtoIn) {
+    let commandUri = Calls.getCommandUri("topic/get");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
 };
 
 export default Calls;

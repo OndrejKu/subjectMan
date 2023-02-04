@@ -50,6 +50,7 @@ let Topics = createVisualComponent({
     //@viewOff:hooks
 
     //@@viewOn:private
+    const [, setRoute] = useRoute();
     const {identity} = useSession();
 
     function showError(content) {
@@ -61,7 +62,41 @@ let Topics = createVisualComponent({
         });
     }
 
+    async function handleCreateTopic(topic) {
+      alert("User pressed create")
+      // try {
+      //   await createTopicRef.current({id: Topic.id});
+      // } catch {
+      //   showError(`Creation of ${Topic.name} failed!`);
+      // }
+    }
 
+    async function handleUpdateTopic(topic, values) {
+      alert("User pressed update")
+      // try {
+      //   await updateTopicRef.current({id: Topic.id, ...values});
+      // } catch {
+      //   showError(`Update of ${Topic.name} failed!`);
+      // }
+    }
+
+    async function handleDeleteTopic(topic) {
+      console.log(isUserAuthorized())
+      alert("User pressed delete")
+      // try {
+      //   await deleteTopicRef.current({id: Topic.id});
+      // } catch {
+      //   showError(`Delete of ${Topic.name} failed!`);
+      // }
+    }
+
+    function handleDetailTopic(topic) {
+      setRoute("topicDetail", {id: topic.id});
+    }
+
+    function isUserAuthorized() {
+      return adminList.includes(identity.uuIdentity)
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -76,15 +111,15 @@ let Topics = createVisualComponent({
       console.log("---renderTopicList---")
       console.log(topics)
       // return<h2>data loaded</h2>
-      return(
+      return (
         <div className={Config.Css.css({padding: 16})}>
           <TopicList
             topics={topics}
-            // isAuthorized={isUserAuthorized()}
-            // onUpdate={handleUpdateStudyProgramme}
-            // onCreate={handleCreateStudyProgramme}
-            // onDetail={handleDetailStudyProgramme}
-            // onDelete={handleDeleteStudyProgramme}
+            isAuthorized={isUserAuthorized()}
+            onUpdate={handleUpdateTopic}
+            onCreate={handleCreateTopic}
+            onDetail={handleDetailTopic}
+            onDelete={handleDeleteTopic}
           />
         </div>
       )
@@ -104,27 +139,27 @@ let Topics = createVisualComponent({
         <RouteBar name="routeBar" id="6983038 "/>
         <SubjectManCarousel name="SubjectManCarousel" id="6438025"/>
         <TopicProvider>
-            {({state, data, errorData, pendingData, handlerMap}) => {
-              // createTopicRef.current = handlerMap.createTopic;
-              // updateTopicRef.current = handlerMap.updateTopic;
-              // getTopicRef.current = handlerMap.getTopic;
-              console.log("---topics.js---")
-              console.log(data)
-              console.log(state)
-              switch (state) {
-                case "pending":
-                case "pendingNoData":
-                  return renderLoad();
-                case "error":
-                case "errorNoData":
-                  return renderError(errorData);
-                case "itemPending":
-                case "ready":
-                case "readyNoData":
-                default:
-                  return renderTopicList(data);
-              }
-            }}
+          {({state, data, errorData, pendingData, handlerMap}) => {
+            // createTopicRef.current = handlerMap.createTopic;
+            // updateTopicRef.current = handlerMap.updateTopic;
+            // getTopicRef.current = handlerMap.getTopic;
+            console.log("---topics.js---")
+            console.log(data)
+            console.log(state)
+            switch (state) {
+              case "pending":
+              case "pendingNoData":
+                return renderLoad();
+              case "error":
+              case "errorNoData":
+                return renderError(errorData);
+              case "itemPending":
+              case "ready":
+              case "readyNoData":
+              default:
+                return renderTopicList(data);
+            }
+          }}
         </TopicProvider>
       </div>
     );

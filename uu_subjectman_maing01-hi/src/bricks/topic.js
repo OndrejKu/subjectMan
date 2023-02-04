@@ -27,25 +27,45 @@ const Topic = createVisualComponent({
       id: UU5.PropTypes.string.isRequired,
       name: UU5.PropTypes.string.isRequired
     }),
+    onDetail: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
+    onDelete: UU5.PropTypes.func
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     topic: null,
+    onDetail: () => {},
+    onUpdate: () => {},
+    onDelete: () => {}
   },
   //@@viewOff:defaultProps
 
-  render({topic}) {
+  render({topic, onDetail, onUpdate, onDelete }) {
     //@@viewOn:private
     const [, setRoute] = useRoute();
+
+    function handleUpdate() {
+      onUpdate(topic);
+    }
+
+    function handleDetail(){
+      onDetail(topic)
+
+    }
+
+    function handleDelete() {
+      onDelete(topic);
+    }
+
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    if (!Topic) return null;
+    if (!topic) return null;
 
     return (
       <Uu5Elements.Block className={Css.backgroundImage()}
@@ -56,7 +76,7 @@ const Topic = createVisualComponent({
         header={topic.name}
         // footer={}
         key={topic.id}
-        // onClick=alert("Clicked on detail")
+        onClick={handleDetail}
       >
         {/*{<span className={Css.degreeBadge()}>{Topic.degreeOfStudy}</span>}*/}
       </Uu5Elements.Block>

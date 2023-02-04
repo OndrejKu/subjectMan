@@ -9,6 +9,7 @@ import StudyProgrammeDetail from "../bricks/study-programme-detail";
 import StudyProgrammes from "../routes/study-programmes";
 import DigitalContents from "../routes/digital-contents.js";
 import Topics from "../routes/topics";
+import TopicDetail from "../bricks/topic-detail";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -22,6 +23,7 @@ const ROUTE_MAP = {
   studyProgrammes: (props) => <StudyProgrammes {...props} />,
   digitalContents: (props) => <DigitalContents {...props} />,
   topics: (props) => <Topics {...props} />,
+  topicDetail: (props) => <TopicDetail {...props} />,
   home: (props) => <Home {...props} />,
   about: (props) => <About {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
