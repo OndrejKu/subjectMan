@@ -67,7 +67,7 @@ const StudyProgramme = createVisualComponent({
     if (!studyProgram) return null;
 
     return (
-      <Uu5Elements.Block className={Css.backgroundImage()}
+      <Uu5Elements.Block className={Css.studyProgrammeBackgroundImage()}
                          card="full"
                          colorScheme="dark-blue"
                          significance="highlighted"

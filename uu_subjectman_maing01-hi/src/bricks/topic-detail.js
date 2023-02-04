@@ -81,23 +81,6 @@ const TopicDetail = createVisualComponent({
       console.log(digitalContentData);
       return (
         <DigitalContentList digitalContent={digitalContentData}/>
-        // <>
-        //   {/*{digitalContentData.map((digitalContent) => {*/}
-        //   {/*  return (*/}
-        //       // <Uu5Elements.Block className={Css.backgroundImage()}
-        //       //                    card="full"
-        //       //                    colorScheme="dark-blue"
-        //       //                    significance="highlighted"
-        //       //                    headerType="title"
-        //       //                    header={digitalContent.name}
-        //       //                    key={digitalContent.id}
-        //       //                    onClick={digitalContent}
-        //       // >
-        //       // </Uu5Elements.Block>
-        //       <DigitalContentList digitalContent={digitalContentData}></DigitalContentList>
-        //     )
-        //   })}
-        // </>
       );
     }
 
@@ -107,9 +90,6 @@ const TopicDetail = createVisualComponent({
       return (
         <Uu5Elements.Block className={Css.uu5ElementsBox()}
                            card="full"
-                           // background="light"
-                           // colorScheme="#5dfff4"
-                           // significance="highlighted"
                            headerType="title"
                            header={
                              <div>

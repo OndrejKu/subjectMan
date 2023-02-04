@@ -91,25 +91,34 @@ const RouteBar = createVisualComponent({
           <Uu5Elements.Icon
             icon="mdi-home"
             className={icons()}
-            onClick={() => setRoute("home")}
+            onClick={() => setRoute("studyProgrammes")}
             tooltip="Home"
             name="homeIcon"
             id="7658133"
           />
+          {/*<Uu5Elements.Icon*/}
+          {/*  icon="fa-solid fa-graduation-cap"*/}
+          {/*  className={icons()}*/}
+          {/*  onClick={() => setRoute("studyProgrammes")}*/}
+          {/*  tooltip="Study Programme"*/}
+          {/*  name="studyProgrammesIcon"*/}
+          {/*  id="3002449"*/}
+          {/*/>*/}
           <Uu5Elements.Icon
-            icon="fa-solid fa-graduation-cap"
+          icon="fa-solid fa-book"
             className={icons()}
-            onClick={() => setRoute("studyProgrammes")}
-            tooltip="Study Programme"
-            name="studyProgrammesIcon"
-            id="3002449"
+            onClick={() => setRoute("topics")}
+            tooltip="Topics"
+            name="topics"
+            id="2320075"
           />
           <Uu5Elements.Icon
-            icon="fa-graduation-cap"
+            icon="fa-solid fa-bookmark"
             className={icons()}
             onClick={() => setRoute("digitalContents")}
-            tooltip=""
-            name=""
+            tooltip="digital contents"
+            name="digitalContents"
+            id="3006749"
           />
           <Uu5Elements.Icon
             icon="mdi-information"
@@ -118,22 +127,6 @@ const RouteBar = createVisualComponent({
             tooltip="About page"
             name="aboutIcon"
             id="8330618"
-          />
-          <Uu5Elements.Icon
-            icon="mdi-emoticon-poop"
-            className={icons()}
-            onClick={() => setRoute("topics")}
-            tooltip=""
-            name=""
-            id="2320075"
-          />
-          <Uu5Elements.Icon
-            icon="mdiGoogleClassroom"
-            className={icons()}
-            onClick={() => setRoute()}
-            tooltip=""
-            name=""
-            id="5470808"
           />
         </Uu5Elements.Box>
     )

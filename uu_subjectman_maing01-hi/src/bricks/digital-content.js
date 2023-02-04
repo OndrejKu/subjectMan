@@ -42,15 +42,15 @@ const DigitalContent = createVisualComponent({
     console.log("context")
     console.log(useContext(DigitalContentContext))
     return (
-      <Uu5Elements.Block
-        card="full"
-        colorScheme="dark-blue"
-        headerType="title"
-        header={data.title}
-        // footer={}
-        key={data.id}
+      <Uu5Elements.Block className={Css.digitalContentBackgroundImage()}
+                         card="full"
+                         colorScheme="dark-blue"
+                         significance="highlighted"
+                         headerType="title"
+                         header={data.title}
+                         key={data.id}
       >
-        <a href={data.link}>Link to {data.type}</a>
+        <a className={Config.Css.css({color: "white"})} href={data.link}>Link to {data.type}</a>
       </Uu5Elements.Block>
     )
     //@@viewOff:render
@@ -58,6 +58,6 @@ const DigitalContent = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { DigitalContent };
+export {DigitalContent};
 export default DigitalContent;
 //@@viewOff:exports
