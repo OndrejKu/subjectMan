@@ -1,18 +1,16 @@
 //@@viewOn:imports
-import {createVisualComponent, Utils, Content, useRef, useContext} from "uu5g05";
+import {createVisualComponent, Utils, Content, useRef, useContext, useRoute} from "uu5g05";
 import Config from "./config/config.js";
 import Uu5Elements from "uu5g05-elements";
 import UU5 from "uu5g04";
-
+import Css from "./main-css"
+import StudyProgrammeContext from "./study-programme-context";
 //@@viewOff:imports
 
 //@@viewOn:constants
 //@@viewOff:constants
 
 //@@viewOn:css
-const Css = {
-  main: () => Config.Css.css({}),
-};
 //@@viewOff:css
 
 //@@viewOn:helpers
@@ -30,23 +28,48 @@ const StudyProgramme = createVisualComponent({
       id: UU5.PropTypes.string.isRequired,
       name: UU5.PropTypes.string.isRequired
     }),
-    onDelete: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func
+    onDetail: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
+    onDelete: UU5.PropTypes.func
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     StudyProgramme: null,
+    onDetail: () => {},
     onUpdate: () => {},
-    onCreate: () => {}
+    onDelete: () => {}
   },
   //@@viewOff:defaultProps
 
-  render({StudyProgramme, onUpdate, onCreate }) {
+  render({StudyProgramme, onDetail, onUpdate, onDelete }) {
     //@@viewOn:private
-    const handleUpdate = () => "Updated!"
-    const handleCreate = () => "Updated!"
+    const [, setRoute] = useRoute();
+    // const {
+    //   data: { newData }
+    // } = useContext(StudyProgrammeContext);
+
+    // const handleUpdate = () => "Updated!"
+    // const handleCreate = () => "Updated!"
+    // const handleDetail = () => setRoute("studyProgrammeDetail", { id: StudyProgramme.id })
+    // const handleDetail = () => setRoute("studyProgrammeDetail", { ...StudyProgramme })
+
+    function handleUpdate() {
+
+      onUpdate(StudyProgramme);
+      // return newData
+    }
+
+    function handleDetail(){
+      onDetail(StudyProgramme)
+      // return dtoInStudyProgramme
+    }
+
+    function handleDelete() {
+      onDelete(StudyProgramme);
+    }
+
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -56,9 +79,18 @@ const StudyProgramme = createVisualComponent({
     if (!StudyProgramme) return null;
 
     return (
-    <div>
-      <h2>Test</h2>
-    </div>
+      <Uu5Elements.Block className={Css.backgroundImage()}
+        card="full"
+        colorScheme="dark-blue"
+        significance="highlighted"
+        headerType="title"
+        header={StudyProgramme.name}
+        // footer={}
+        key={StudyProgramme.id}
+        onClick={handleDetail}
+      >
+        {<span className={Css.degreeBadge()}>{StudyProgramme.degreeOfStudy}</span>}
+      </Uu5Elements.Block>
     )
     //@@viewOff:render
   },

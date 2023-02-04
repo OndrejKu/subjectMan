@@ -41,8 +41,8 @@ const DEFAULT_USE_CASE = "home";
 
 const ROUTES = {
   "": DEFAULT_USE_CASE,
-  home: { component: <Home /> },
-  about: { component: <About /> },
+  home: {component: <Home/>},
+  about: {component: <About/>},
   // jokes: { component: <Jokes /> }
 };
 
@@ -87,16 +87,48 @@ const RouteBar = createVisualComponent({
     //@@viewOn:render
     // return <Plus4U5App.RouteBar appActionList={appActionList} {...props} />;
     return (
-      <Uu5Elements.Box className={Config.Css.css({padding: 8})}>
-        <Uu5Elements.Icon icon="mdi-home" className={icons()} onClick={() => setRoute("home")} tooltip={"Home"}/>
-        <Uu5Elements.Icon icon="fa-solid fa-graduation-cap" className={icons()} onClick={() => setRoute("studyProgrammes")} tooltip={"Study Programme"}/>
-        <Uu5Elements.Icon icon="mdi-information" className={lastIcons()} onClick={() => setRoute("about")} tooltip={"About page"}/>
-        {/*TODO: ADD route to digital content ?search bar?*/}
-        <Uu5Elements.Icon icon="mdi-book-open" className={icons()} onClick={() => setRoute()}/>
-        <Uu5Elements.Icon icon="mdiGoogleClassroom" className={icons()} onClick={() => setRoute()}/>
-      </Uu5Elements.Box>
-
-
+        <Uu5Elements.Box className={Config.Css.css({padding: 8})}>
+          <Uu5Elements.Icon
+            icon="mdi-home"
+            className={icons()}
+            onClick={() => setRoute("home")}
+            tooltip="Home"
+            name="homeIcon"
+            id="7658133"
+          />
+          <Uu5Elements.Icon
+            icon="fa-solid fa-graduation-cap"
+            className={icons()}
+            onClick={() => setRoute("studyProgrammes")}
+            tooltip="Study Programme"
+            name="studyProgrammesIcon"
+            id="3002449"
+          />
+          <Uu5Elements.Icon
+            icon="mdi-information"
+            className={lastIcons()}
+            onClick={() => setRoute("about")}
+            tooltip="About page"
+            name="aboutIcon"
+            id="8330618"
+          />
+          <Uu5Elements.Icon
+            icon="mdi-book-open"
+            className={icons()}
+            onClick={() => setRoute()}
+            tooltip=""
+            name=""
+            id="2320075"
+          />
+          <Uu5Elements.Icon
+            icon="mdiGoogleClassroom"
+            className={icons()}
+            onClick={() => setRoute()}
+            tooltip=""
+            name=""
+            id="5470808"
+          />
+        </Uu5Elements.Box>
     )
     //@@viewOff:render
   },

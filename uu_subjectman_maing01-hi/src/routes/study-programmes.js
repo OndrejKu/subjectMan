@@ -1,5 +1,6 @@
 //@@viewOn:imports
-import {createVisualComponent, useContext, useRef} from "uu5g05";
+import {createVisualComponent, useRef, useRoute, useState, Utils} from "uu5g05";
+import { createContext, useContext } from 'react';
 import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
 import "uu5g04-bricks";
@@ -8,9 +9,17 @@ import StudyProgrammeProvider from "../bricks/study-programme-provider";
 import RouteBar from "../core/route-bar";
 import SubjectManCarousel from "../bricks/subject-man-carousel";
 import studyProgrammeDtoIn from "../bricks/hardcoded-data";
+import StudyProgrammeList from "../bricks/study-programme-list";
+import StudyProgrammeDetail from "../bricks/study-programme-detail";
+import Css from "../bricks/main-css";
+import routeBar from "../core/route-bar";
+import StudyProgrammeContext from "../bricks/study-programme-context";
 //@@viewOff:imports
 
 //@@viewOn:constants
+const [MyContext, useMyContext] = Utils.Context.create({})
+
+
 //@@viewOff:constants
 
 //@@viewOn:css
@@ -44,9 +53,14 @@ let StudyProgrammes = createVisualComponent({
     // const {
     //   data: { authorizedProfileList }
     // } = useContext(SubjectmanInstanceContext);
+    const [, setRoute] = useRoute();
+    // const [StudyProgramme, setStudyProgramme] = useState();
+    // const getStudyProgramme = useContext(null);
     const createStudyProgrammeRef = useRef();
     const updateStudyProgrammeRef = useRef();
+    const deleteStudyProgrammeRef = useRef();
     const getStudyProgrammeRef = useRef();
+    const detailRef = useRef();
     // const listStudyProgrammeRef = useRef();
     //@viewOff:hooks
 
@@ -78,6 +92,24 @@ let StudyProgrammes = createVisualComponent({
       }
     }
 
+    async function handleDeleteStudyProgramme(studyProgramme) {
+      try {
+        await deleteStudyProgrammeRef.current({id: studyProgramme.id});
+      } catch {
+        showError(`Delete of ${studyProgramme.name} failed!`);
+      }
+    }
+
+    function handleDetailStudyProgramme(studyProgramme) {
+      // const value = useContext(StudyProgrammeContext)
+      // console.log("handleDetailStudyProgramme");
+      // console.log(studyProgramme)
+
+      // useMyContext(studyProgramme)
+      // setRoute("studyProgrammeDetail", {id: studyProgramme.id})
+      setRoute("studyProgrammeDetail", {...studyProgramme})
+    }
+
     //TODO: Do we need get handleGetStudyProgramme??
     // async function handleGetStudyProgramme(studyProgramme) {
     //   try {
@@ -103,15 +135,17 @@ let StudyProgrammes = createVisualComponent({
       return <UU5.Bricks.Loading/>;
     }
 
-    function renderReady(StudyProgrammes) {
-      console.log("---RenderReady---")
-      // console.log(StudyProgrammes.studyProgrammeDtoIn.itemList)
-      console.log(StudyProgrammes)
-
+    function renderReady(studyProgrammes) {
       return (
         <div className={Config.Css.css({padding: 32})}>
           <Uu5Elements.Block>
-            <h2>renderReady successfully!</h2>
+            <StudyProgrammeList
+              studyProgram={studyProgrammes}
+              onUpdate={handleUpdateStudyProgramme}
+              onCreate={handleCreateStudyProgramme}
+              onDetail={handleDetailStudyProgramme}
+              onDelete={handleDeleteStudyProgramme}
+            />
           </Uu5Elements.Block>
         </div>
       );
@@ -128,17 +162,13 @@ let StudyProgrammes = createVisualComponent({
 
     return (
       <div>
-        <RouteBar/>
-        {/*<SubjectManCarousel/>*/}
-
-
+        <RouteBar name="routeBar" id="6983038 "/>
+        <SubjectManCarousel name="SubjectManCarousel" id="6438025"/>
         <StudyProgrammeProvider>
           {({state, data, errorData, pendingData, handlerMap}) => {
             createStudyProgrammeRef.current = handlerMap.createStudyProgramme;
             updateStudyProgrammeRef.current = handlerMap.updateStudyProgramme;
             getStudyProgrammeRef.current = handlerMap.getStudyProgramme;
-            // listStudyProgrammeRef.current = handlerMap.listStudyProgramme;
-
             switch (state) {
               case "pending":
               case "pendingNoData":
@@ -150,19 +180,10 @@ let StudyProgrammes = createVisualComponent({
               case "ready":
               case "readyNoData":
               default:
-                // if (state === "pendingNoData") {
-                //   return renderLoad();
-                // } else {
-                //   return renderReady(data);
-                // }
-                // if (data.length === 0){
-                //   data={studyProgrammeDtoIn}
-                // }
                 return renderReady(data);
             }
           }}
         </StudyProgrammeProvider>
-
       </div>
     );
     //@@viewOff:render

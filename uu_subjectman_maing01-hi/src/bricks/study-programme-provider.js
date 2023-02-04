@@ -1,7 +1,8 @@
 //@@viewOn:imports
-import {createVisualComponent, useDataList} from "uu5g05";
+import {createVisualComponent, useDataList, useMemo, useRoute, useUpdateEffect} from "uu5g05";
 import Config from "./config/config.js";
 import Calls from "../calls";
+import StudyProgrammeContext from "./study-programme-context";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -24,8 +25,10 @@ const StudyProgrammeProvider = createVisualComponent({
   //@@viewOn:defaultProps
   //@@viewOff:defaultProps
 
-  render({ children }) {
+  render({children}) {
     //@@viewOn:hooks
+    const [route,] = useRoute();
+
     let listDataValues = useDataList({
       pageSize: 200,
       handlerMap: {
@@ -33,11 +36,17 @@ const StudyProgrammeProvider = createVisualComponent({
         createStudyProgramme: Calls.createStudyProgramme,
         updateStudyProgramme: Calls.updateStudyProgramme,
         getStudyProgramme: Calls.getStudyProgramme
-      }
+      },
+      // skipInitialLoad: False
     });
+
+    useUpdateEffect(() => {
+      listDataValues.handlerMap.getStudyProgramme({"id": route.params.id});
+    }, [route.params?.id]);
+
     let { state, data, newData, pendingData, errorData, handlerMap } = listDataValues;
-    console.log("----listDataValues----");
-    console.log(listDataValues);
+    console.log("----getStudyProgramme----");
+    console.log(handlerMap);
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -47,6 +56,11 @@ const StudyProgrammeProvider = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
+
+    // const providerValue = useMemo(() => {
+    //   return listDataValues;
+    // }, [listDataValues]);
+
     return children({
       state,
       data,
@@ -55,6 +69,12 @@ const StudyProgrammeProvider = createVisualComponent({
       errorData,
       handlerMap
     });
+
+    // return (
+    //   <StudyProgrammeContext.Provider value={providerValue}>
+    //     {typeof props.children === "function" ? props.children(providerValue) : props.children}
+    //   </StudyProgrammeContext.Provider>
+    // );
     //@@viewOff:render
   },
 });

@@ -47,14 +47,16 @@ const Calls = {
   },
 
   getCommandUri(useCase, baseUri = CALLS_BASE_URI) {
+    console.log(useCase)
+    console.log(baseUri)
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
   },
 
-  async listStudyProgramme(dtoIn) {
+  listStudyProgramme(dtoIn) {
     let commandUri = Calls.getCommandUri("studyProgramme/list");
-    console.log("listStudyProgramme")
-    console.log(dtoIn)
-    return await Calls.call("get", commandUri, dtoIn);
+    // console.log("listStudyProgramme")
+    // console.log(dtoIn)
+    return Calls.call("get", commandUri, dtoIn);
   },
 
   createStudyProgramme(dtoIn) {
@@ -64,6 +66,8 @@ const Calls = {
 
   getStudyProgramme(dtoIn) {
     let commandUri = Calls.getCommandUri("studyProgramme/get");
+    console.log("---getStudyProgramme---")
+    console.log(dtoIn)
     return Calls.call("get", commandUri, dtoIn);
   },
 

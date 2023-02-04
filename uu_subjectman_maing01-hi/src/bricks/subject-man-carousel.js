@@ -18,30 +18,25 @@ const Css = {
 
 const carouselTemplateText = {
   header: "Online study",
-  // paragraph: "Bakalářský studijní program softwarový vývoj vás naučí vyvíjet robustní cloudové aplikace s využitím moderních programovacích jazyků a porozumíte disciplínám z oblasti vývoje software."
   paragraph: "Are you interested in Business or IT, but your time availability is limited? Study online whether you are in an office, at home or travelling. With us, everything is online – from the admission process to the final state examinations. We start in FEBRUARY!\n"
 }
 
 const IMAGE_LIST = [
-  // "https://static-abcblogs.abc.es/wp-content/uploads/sites/250/2019/09/Mula.jpg",
+  "https://img.freepik.com/free-vector/server-room-rack-blockchain-technology-token-api-access-data-center_39422-442.jpg?w=1060&t=st=1675122148~exp=1675122748~hmac=f1fb881d0517c0653ac9ec2f60a4881be9a3879361941b6be0d43cf563d0d38e",
+  "https://img.freepik.com/free-vector/server-room-cloud-storage-icon-datacenter-database-concept-data-exchange-process_39422-556.jpg?w=900&t=st=1675123450~exp=1675124050~hmac=6732c6c201d3a5a50dc44afd16f16c46f25054f4406812a5251b704fc9f79eb4",
+  "https://img.freepik.com/free-vector/abstract-banner-data-visualization-big-data-processing-cloud-storage-server-hosting_39422-978.jpg?w=900&t=st=1675123497~exp=1675124097~hmac=d747ba90c1d78685f82b09056513cf0cae89ff0f3990b91cce2df26d1ab70918",
   "https://img.freepik.com/free-vector/blue-futuristic-networking-technology_53876-97395.jpg?w=1060&t=st=1673184278~exp=1673184878~hmac=a073b8c42599b2543acfcae354ebd1e98134e6302c7cd1b644ebe1d58c959041",
-
-  // "https://img.freepik.com/free-vector/flat-cms-concept-illustrated_23-2148925794.jpg?w=1060&t=st=1673184181~exp=1673184781~hmac=d386779c3f390fa35c87179aed7c1467c706056c79ca353aefe225fa684a89d8",
-  //
-  // "https://img.freepik.com/free-vector/team-mobile-web-app-development_107791-12795.jpg?w=1380&t=st=1673184131~exp=1673184731~hmac=4a31afba8db2b06414b70a3e5b44083932cde20bfa90cb5d41ea69bc0fd676fe",
-  // "https://img.freepik.com/free-vector/script-writing-software-engineering-coding-workshop-code-created-workshop-online-programming-course-apps-games-development-class-concept-pinkish-coral-bluevector-isolated-illustration_335657-1253.jpg?w=1060&t=st=1673184092~exp=1673184692~hmac=0c1c849371787bc9d224834a6172dddd955ddb445ad860c991ff5488f7c653ef",
-
 ];
 
 function withControlledCarousel(Carousel) {
   return (props) => {
     const {index: propsIndex, onIndexChange} = props;
     const [index, setIndex] = useState(propsIndex || 0);
-
     return (
       <Carousel
         {...props}
         index={index}
+        key={(Math.floor(100000 + Math.random() * 900000))}
         onIndexChange={(e) => {
           typeof onIndexChange === "function" && onIndexChange(e);
           setIndex(e.data.index);
@@ -58,7 +53,6 @@ function generateImageItems(count) {
         src={IMAGE_LIST[i]}
         key={i}
         className={Config.Css.css({
-          display: "block",
           height: 400,
           width: "100%",
           maxWidth: "100%",
@@ -70,7 +64,6 @@ function generateImageItems(count) {
         bottom: "40px",
         right: "20px",
         left: "20px",
-        // backgroundColor: "black",
         color: "white",
         paddingLeft: "20px",
         paddingRight: "20px",
@@ -84,7 +77,7 @@ function generateImageItems(count) {
 }
 
 
-const IMAGE_ITEM_LIST = generateImageItems(1);
+const IMAGE_ITEM_LIST = generateImageItems(3);
 const Carousel = withControlledCarousel(Uu5Elements.Carousel);
 
 const SubjectManCarousel = createVisualComponent({
@@ -108,16 +101,16 @@ const SubjectManCarousel = createVisualComponent({
           top: "20px",
           position: "absolute",
         })}>
-          <Uu5Elements.Icon icon="mdi-home" />
+          <Uu5Elements.Icon icon="mdi-home"/>
         </div>
-      <Carousel
-        virtualization
-        type="infinite"
-        stepper="inner"
-        buttons="inner"
-        contentHeight={400}>
-        {IMAGE_ITEM_LIST}
-      </Carousel>
+        <Carousel
+          virtualization
+          type="infinite"
+          stepper="inner"
+          buttons="inner"
+          contentHeight={400}>
+          {IMAGE_ITEM_LIST}
+        </Carousel>
       </div>
     )
     //@@viewOff:render
